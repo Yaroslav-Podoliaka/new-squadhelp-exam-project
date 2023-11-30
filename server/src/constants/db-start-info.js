@@ -3,7 +3,7 @@ module.exports = {
     {
       cardNumber: '4564654564564564',
       name: 'SquadHelp',
-      expiry: '11/24',
+      expiry: '11/25',
       cvc: '453',
       balance: 0,
       createdAt: new Date(),
@@ -11,8 +11,8 @@ module.exports = {
     },
     {
       cardNumber: '4111111111111111',
-      name: 'yriy',
-      expiry: '09/24',
+      name: 'Yaroslav',
+      expiry: '09/25',
       cvc: '505',
       balance: 5000,
       createdAt: new Date(),

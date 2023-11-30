@@ -1,4 +1,6 @@
-FROM node:16.15.1-alpine3.16
+ARG VERSION=18-alpine
+
+FROM node:$VERSION
 
 ARG NODE_ENV="development"
 

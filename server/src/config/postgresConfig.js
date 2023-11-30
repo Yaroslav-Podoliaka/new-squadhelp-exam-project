@@ -1,4 +1,4 @@
-require('dotenv/config');
+require('dotenv').config();
 
 module.exports ={
   development: {
@@ -14,7 +14,7 @@ module.exports ={
   test: {
     username: 'postgres',
     password: 'admin',
-    database: 'new-squadhelp-test',
+    database: 'sql-squad-help-test',
     host: 'localhost',
     dialect: 'postgres',
     operatorsAliases: 'Op',
@@ -24,8 +24,8 @@ module.exports ={
   production: {
     username: 'postgres',
     password: 'admin',
-    database: 'new-squadhelp-prod',
-    host: 'localhost',
+    database: 'sql-squad-help-prod',
+    host: 'db-prod',
     dialect: 'postgres',
     operatorsAliases: 'Op',
     migrationStorage: 'json',

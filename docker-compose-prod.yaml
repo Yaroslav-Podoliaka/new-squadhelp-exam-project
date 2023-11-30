@@ -27,16 +27,16 @@ services:
       - /var/www/html/images:/var/www/html/images
 
   db-prod:
-    image: postgres:13.2-alpine
+    image: postgres:16.1-alpine
     environment:
-      - POSTGRES_PASSWORD=password
+      - POSTGRES_PASSWORD=admin
       - POSTGRES_USER=postgres
-      - POSTGRES_DB=todo-prod
+      - POSTGRES_DB=sql-squad-help-dev
     ports:
       - "12346:5432"
 
   mongo-prod:
-    image: mongo:4.4.6-bionic
+    image: mongo:6-jammy
     environment:
       - MONGO_DATA_DIR=/data/db
       - MONGO_LOG_DIR=/dev/null

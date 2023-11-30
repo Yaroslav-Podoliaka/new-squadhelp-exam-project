@@ -1,4 +1,299 @@
-import React from 'react';
+import React, { useEffect, useCallback, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { connect } from 'react-redux';
+import queryString from 'query-string';
+import classNames from 'classnames';
+import isEqual from 'lodash/isEqual';
+import {
+  getContests,
+  clearContestsList,
+  setNewCreatorFilter,
+} from '../../store/slices/contestsSlice';
+import { getDataForContest } from '../../store/slices/dataForContestSlice';
+import ContestsContainer from '../ContestsContainer/ContestsContainer';
+import ContestBox from '../ContestBox/ContestBox';
+import styles from './CreatorDashboard.module.sass';
+import TryAgain from '../TryAgain/TryAgain';
+import CONSTANTS from '../../constants';
+
+const types = [
+  '',
+  'name,tagline,logo',
+  'name',
+  'tagline',
+  'logo',
+  'name,tagline',
+  'logo,tagline',
+  'name,logo',
+];
+
+const CreatorDashboard = ({
+  location,
+  contests,
+  creatorFilter,
+  haveMore,
+  error,
+  isFetching,
+  dataForContest,
+  getContests,
+  clearContestsList,
+  newFilter,
+  getDataForContest,
+}) => {
+  const navigate = useNavigate();
+  const prevLocationSearchRef = useRef(location.search);
+
+  const parseParamsToUrl = useCallback((creatorFilter) => {
+    const obj = {};
+    Object.keys(creatorFilter).forEach((el) => {
+      if (creatorFilter[el]) obj[el] = creatorFilter[el];
+    });
+    navigate(`/Dashboard?${queryString.stringify(obj)}`);
+  }, [navigate]);
+
+  const changePredicate = useCallback(({ name, value }) => {
+    newFilter({
+      [name]: value === 'Choose industry' ? null : value,
+    });
+    parseParamsToUrl({
+      ...creatorFilter,
+      ...{ [name]: value === 'Choose industry' ? null : value },
+    });
+  }, [creatorFilter, newFilter, parseParamsToUrl]);
+
+  const renderSelectType = useCallback(() => {
+    const array = [];
+    types.forEach(
+      (el, i) =>
+        !i ||
+        array.push(
+          <option key={i - 1} value={el}>
+            {el}
+          </option>
+        )
+    );
+    return (
+      <select
+        onChange={({ target }) =>
+          changePredicate({
+            name: 'typeIndex',
+            value: types.indexOf(target.value),
+          })
+        }
+        value={types[creatorFilter.typeIndex]}
+        className={styles.input}
+      >
+        {array}
+      </select>
+    );
+  }, [creatorFilter.typeIndex, changePredicate]);
+
+  const renderIndustryType = useCallback(() => {
+    const array = [];
+    const { industry } = dataForContest.data;
+    array.push(
+      <option key={0} value={null}>
+        Choose industry
+      </option>
+    );
+    industry.forEach((industry, i) =>
+      array.push(
+        <option key={i + 1} value={industry}>
+          {industry}
+        </option>
+      )
+    );
+    return (
+      <select
+        onChange={({ target }) =>
+          changePredicate({
+            name: 'industry',
+            value: target.value,
+          })
+        }
+        value={creatorFilter.industry}
+        className={styles.input}
+      >
+        {array}
+      </select>
+    );
+  }, [creatorFilter.industry, dataForContest.data, changePredicate]);
+
+  const parseUrlForParams = useCallback((search) => {
+    const obj = queryString.parse(search);
+    const filter = {
+      typeIndex: obj.typeIndex || 1,
+      contestId: obj.contestId ? obj.contestId : '',
+      industry: obj.industry ? obj.industry : '',
+      awardSort: obj.awardSort || 'asc',
+      ownEntries:
+        typeof obj.ownEntries === 'undefined' ? false : obj.ownEntries,
+    };
+    if (!isEqual(filter, creatorFilter)) {
+      newFilter(filter);
+      clearContestsList();
+      getContests(filter);
+      return false;
+    }
+    return true;
+  }, [clearContestsList, creatorFilter, getContests, newFilter]);
+
+  const getPredicateOfRequest = useCallback(() => {
+    const obj = {};
+    Object.keys(creatorFilter).forEach((el) => {
+      if (creatorFilter[el]) {
+        obj[el] = creatorFilter[el];
+      }
+    });
+    obj.ownEntries = creatorFilter.ownEntries;
+    return obj;
+  }, [creatorFilter]);
+
+  const loadMore = useCallback((startFrom) => {
+    getContests({
+      limit: 8,
+      offset: startFrom,
+      ...getPredicateOfRequest(),
+    });
+  }, [getContests, getPredicateOfRequest]);
+
+  const goToExtended = useCallback((contestId) => {
+    navigate(`/contest/${contestId}`);
+  }, [navigate]);
+
+  const setContestList = useCallback(() => {
+    const array = [];
+    for (let i = 0; i < contests.length; i++) {
+      array.push(
+        <ContestBox
+          data={contests[i]}
+          key={contests[i].id}
+          goToExtended={goToExtended}
+        />
+      );
+    }
+    return array;
+  }, [contests, goToExtended]);
+
+  const tryLoadAgain = useCallback(() => {
+    clearContestsList();
+    getContests({
+      limit: 8,
+      offset: 0,
+      ...getPredicateOfRequest(),
+    });
+  }, [clearContestsList, getContests, getPredicateOfRequest]);
+
+  useEffect(() => {
+    getDataForContest();
+    if(parseUrlForParams(location.search) && !contests.length) {
+      getContests(creatorFilter);
+    }
+  }, [getDataForContest, location.search, parseUrlForParams, contests, creatorFilter, getContests]);
+
+  useEffect(() => {
+    getDataForContest();
+    if(prevLocationSearchRef.current !== location.search) {
+      parseUrlForParams(location.search);
+    }
+    prevLocationSearchRef.current = location.search;
+  }, [getDataForContest, location.search, parseUrlForParams]);
+
+    return (
+      <div className={styles.mainContainer}>
+        <div className={styles.filterContainer}>
+          <span className={styles.headerFilter}>Filter Results</span>
+          <div className={styles.inputsContainer}>
+            <div
+              onClick={() =>
+                changePredicate({
+                  name: 'ownEntries',
+                  value: !creatorFilter.ownEntries,
+                })
+              }
+              className={classNames(styles.myEntries, {
+                [styles.activeMyEntries]: creatorFilter.ownEntries,
+              })}
+            >
+              My Entries
+            </div>
+            <div className={styles.inputContainer}>
+              <span>By contest type</span>
+              {renderSelectType()}
+            </div>
+            <div className={styles.inputContainer}>
+              <span>By contest ID</span>
+              <input
+                type="text"
+                onChange={({ target }) =>
+                  changePredicate({
+                    name: 'contestId',
+                    value: target.value,
+                  })
+                }
+                name="contestId"
+                value={creatorFilter.contestId}
+                className={styles.input}
+              />
+            </div>
+            {!isFetching && (
+              <div className={styles.inputContainer}>
+                <span>By industry</span>
+                {renderIndustryType()}
+              </div>
+            )}
+            <div className={styles.inputContainer}>
+              <span>By amount award</span>
+              <select
+                onChange={({ target }) =>
+                  changePredicate({
+                    name: 'awardSort',
+                    value: target.value,
+                  })
+                }
+                value={creatorFilter.awardSort}
+                className={styles.input}
+              >
+                <option value="desc">Descending</option>
+                <option value="asc">Ascending</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        {error ? (
+          <div className={styles.messageContainer}>
+            <TryAgain getData={tryLoadAgain} />
+          </div>
+        ) : (
+          <ContestsContainer
+            isFetching={isFetching}
+            loadMore={loadMore}
+            haveMore={haveMore}
+          >
+            {setContestList()}
+          </ContestsContainer>
+        )}
+      </div>
+    );
+}
+
+const mapStateToProps = (state) => {
+  const { contestsList, dataForContest } = state;
+  return { ...contestsList, dataForContest };
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  getContests: (data) =>
+    dispatch(getContests({ requestData: data, role: CONSTANTS.CREATOR })),
+  clearContestsList: () => dispatch(clearContestsList()),
+  newFilter: (filter) => dispatch(setNewCreatorFilter(filter)),
+  getDataForContest: () => dispatch(getDataForContest()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreatorDashboard);
+
+
+/**import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
@@ -295,4 +590,4 @@ const mapDispatchToProps = (dispatch) => ({
 
 export default withRouter(
   connect(mapStateToProps, mapDispatchToProps)(CreatorDashboard)
-);
+);**/

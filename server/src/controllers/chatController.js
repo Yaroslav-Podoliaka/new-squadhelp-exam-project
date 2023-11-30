@@ -1,8 +1,8 @@
-const Conversation = require('../models/mongoModels/conversation');
-const Message = require('../models/mongoModels/Message');
-const Catalog = require('../models/mongoModels/Catalog');
-const moment = require('moment');
-const db = require('../models');
+const Conversation = require('../dbMongo/Conversation');
+const Message = require('../dbMongo/Message');
+const Catalog = require('../dbMongo/Catalog');
+// const moment = require('moment');
+const db = require('../db/models');
 const userQueries = require('./queries/userQueries');
 const controller = require('../socketInit');
 const _ = require('lodash');

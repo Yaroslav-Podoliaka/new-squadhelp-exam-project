@@ -1,11 +1,11 @@
-import isEqual from 'lodash/isEqual';
+// import isEqual from 'lodash/isEqual';
 import WebSocket from './WebSocket';
 import CONTANTS from '../../../constants';
 import {
   addMessage,
   changeBlockStatusInStore,
 } from '../../../store/slices/chatSlice';
-import _ from 'lodash';
+// import _ from 'lodash';
 
 class ChatSocket extends WebSocket {
   constructor (dispatch, getState, room) {

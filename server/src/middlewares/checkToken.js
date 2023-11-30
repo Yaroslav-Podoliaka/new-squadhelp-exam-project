@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const CONSTANTS = require('../constants');
+const CONSTANTS = require('../constants/constants');
 const TokenError = require('../errors/TokenError');
 const userQueries =require('../controllers/queries/userQueries');
 

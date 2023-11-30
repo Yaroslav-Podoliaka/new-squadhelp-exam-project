@@ -22,7 +22,7 @@ services:
     environment:
       NODE_ENV: development
     ports:
-      - "5000:5000"
+      - "5000:5000" 
     depends_on:
       - db-dev
       - mongo-dev
@@ -33,18 +33,18 @@ services:
 
 
   mongo-dev:
-    image: mongo:4.4.6-bionic
+    image: mongo:6-jammy
     ports:
       - "12345:27017"
 
 
 
   db-dev:
-    image: postgres:13.2-alpine
+    image: postgres:16.1-alpine
     environment:
-      - POSTGRES_PASSWORD=password
+      - POSTGRES_PASSWORD=postgres
       - POSTGRES_USER=postgres
-      - POSTGRES_DB=todo-dev
+      - POSTGRES_DB=sql-squad-help-dev
     ports:
       - "12346:5432"
 

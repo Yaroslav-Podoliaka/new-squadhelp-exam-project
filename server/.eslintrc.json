@@ -10,10 +10,10 @@
     "sourceType": "module"
   },
   "rules": {
-    "comma-dangle": [
-      "error",
-      "always-multiline"
-    ],
+    // "comma-dangle": [
+    //   "error",
+    //   "always-multiline"
+    // ],
     "comma-spacing": [
       "error",
       {
@@ -25,13 +25,13 @@
       "error",
       "always"
     ],
-    "indent": [
-      "error",
-      2,
-      {
-        "MemberExpression": 1
-      }
-    ],
+    // "indent": [
+    //   "error",
+    //   2,
+    //   {
+    //     "MemberExpression": 1
+    //   }
+    // ],
     "no-multiple-empty-lines": [
       "error"
     ],
@@ -55,10 +55,10 @@
       "error",
       "single"
     ],
-    "semi": [
-      "error",
-      "always"
-    ],
+    // "semi": [
+    //   "error",
+    //   "always"
+    // ],
     "space-in-parens": [
       "error",
       "never"
