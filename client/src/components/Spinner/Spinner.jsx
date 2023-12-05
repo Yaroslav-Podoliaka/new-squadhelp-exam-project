@@ -8,7 +8,6 @@ const override = css`border-color: #46568a`;
 const SpinnerLoader = () => (
   <div className={styles.loaderContainer}>
     <ClipLoader
-      sizeUnit='px'
       css={override}
       size={50}
       color='#46568a'

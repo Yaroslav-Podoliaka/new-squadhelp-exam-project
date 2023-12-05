@@ -10,20 +10,12 @@ RUN mkdir -p /var/www/html/images
 
 WORKDIR /server
 
-# COPY package*.json ./
-
 COPY . .
-
-# RUN npm install -g nodemon
-
-# RUN npm install -g sequelize-cli
 
 RUN npm install && chown -R node:node /server/node_modules
 
 COPY . .
 
-EXPOSE 5000
-
-# CMD sequelize db:migrate && sequelize db:seed:all && npm start
+EXPOSE 3000
 
 CMD npm start

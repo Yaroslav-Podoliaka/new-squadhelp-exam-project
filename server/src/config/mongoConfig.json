@@ -1,7 +1,7 @@
 {
   "development": {
     "database": "new-shm-chat",
-    "host": "localhost",
+    "host": "mongo-dev",
     "port": 27017
   },
   "production": {

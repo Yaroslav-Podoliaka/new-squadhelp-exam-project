@@ -8,11 +8,9 @@ RUN mkdir ./client
 
 WORKDIR /client
 
-# COPY package*.json ./
-
 COPY . .
 
-EXPOSE 3000
+EXPOSE 5000
 
 RUN npm install && chown -R node:node /client/node_modules
 

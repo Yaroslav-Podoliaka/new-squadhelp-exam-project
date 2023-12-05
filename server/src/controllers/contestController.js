@@ -140,7 +140,7 @@ module.exports.setNewOffer = async (req, res, next) => {
       req.body.customerId);
     const User = Object.assign({}, req.tokenData, { id: req.tokenData.userId });
     res.send(Object.assign({}, result, { User }));
-  } catch (e) {
+  } catch (err) {
     return next(new ServerError());
   }
 };
@@ -268,6 +268,6 @@ module.exports.getContests = (req, res, next) => {
       res.send({ contests, haveMore });
     })
     .catch(err => {
-      next(new ServerError());
+      next(new ServerError(err));
     });
 };
