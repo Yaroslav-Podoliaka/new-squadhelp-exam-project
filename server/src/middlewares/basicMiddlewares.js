@@ -1,5 +1,5 @@
 const db = require('../db/models');
-const NotFound = require('../errors/UserNotFoundError');
+// const NotFound = require('../errors/UserNotFoundError');
 const RightsError = require('../errors/RightsError');
 const ServerError = require('../errors/ServerError');
 const CONSTANTS = require('../constants/constants');
@@ -18,13 +18,15 @@ module.exports.parseBody = (req, res, next) => {
 
 module.exports.canGetContest = async (req, res, next) => {
   let result = null;
+  console.log('Заголовки basicMiddlewares: ', req.headers);
+  console.log('Заголовок номера конкурса: ', req.headers.contestid);
   try {
     if (req.tokenData.role === CONSTANTS.CUSTOMER) {
-      result = await db.Contests.findOne({
+      result = await db.Contest.findOne({
         where: { id: req.headers.contestid, userId: req.tokenData.userId },
       });
     } else if (req.tokenData.role === CONSTANTS.CREATOR) {
-      result = await db.Contests.findOne({
+      result = await db.Contest.findOne({
         where: {
           id: req.headers.contestid,
           status: {
@@ -64,7 +66,7 @@ module.exports.canSendOffer = async (req, res, next) => {
     return next(new RightsError());
   }
   try {
-    const result = await db.Contests.findOne({
+    const result = await db.Contest.findOne({
       where: {
         id: req.body.contestId,
       },
@@ -84,7 +86,7 @@ module.exports.canSendOffer = async (req, res, next) => {
 
 module.exports.onlyForCustomerWhoCreateContest = async (req, res, next) => {
   try {
-    const result = await db.Contests.findOne({
+    const result = await db.Contest.findOne({
       where: {
         userId: req.tokenData.userId,
         id: req.body.contestId,
@@ -102,7 +104,7 @@ module.exports.onlyForCustomerWhoCreateContest = async (req, res, next) => {
 
 module.exports.canUpdateContest = async (req, res, next) => {
   try {
-    const result = db.Contests.findOne({
+    const result = db.Contest.findOne({
       where: {
         userId: req.tokenData.userId,
         id: req.body.contestId,

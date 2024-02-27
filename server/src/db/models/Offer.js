@@ -27,6 +27,11 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
+      // rating: {
+      //   type: DataTypes.FLOAT,
+      //   allowNull: false,
+      //   defaultValue: 0,
+      // },
       text: {
         type: DataTypes.STRING,
         allowNull: true,

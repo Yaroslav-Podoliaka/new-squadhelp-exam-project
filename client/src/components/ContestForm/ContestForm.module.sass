@@ -15,6 +15,22 @@
     font-size: 18px
     color: #333
 
+.backButton
+  float: right
+  margin-top: 50px
+  width: 150px
+  text-align: center
+  margin-right: 15px
+  color: white
+  font-size: 20px
+  padding: 12px 28px
+  border-radius: 8px
+  border: 1px solid white
+  background-color: #888
+
+  &:hover
+    background-color: #6b8ab1
+
 .changeData
   float: right
   margin-top: 50px
@@ -25,6 +41,7 @@
   font-size: 20px
   padding: 12px 28px
   border-radius: 8px
+  border: 1px solid white
   background-color: #8aca6b
 
   &:hover
@@ -160,7 +177,6 @@
   width: 350px
   margin: 10px 0 10px 0
   padding: 10px 15px
-  background-color: #eee
   @media(max-width: 700px)
     width: auto
   @media(max-width: 600px)
@@ -172,11 +188,16 @@
   .label
     text-align: center
     display: inline-block
-    width: 150px
-    background-color: white
-    padding: 20px
+    color: white
+    background-color: #455a89
+    border-radius: 10px
+    padding: 15px 20px
     font-size: 16px
     cursor: pointer
+
+    &:hover
+      background-color: #f3875d
+      color: white
 
   .fileName
     width: 100px

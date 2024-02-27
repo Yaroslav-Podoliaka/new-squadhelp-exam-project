@@ -2,7 +2,7 @@ module.exports = {
   Banks: [
     {
       cardNumber: '4564654564564564',
-      name: 'SquadHelp',
+      name: 'Squadhelp',
       expiry: '11/25',
       cvc: '453',
       balance: 0,

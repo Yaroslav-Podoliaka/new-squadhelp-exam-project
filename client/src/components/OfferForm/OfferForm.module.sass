@@ -18,16 +18,36 @@
     justify-content: center
     align-items: center
 
-    .btnOffer
-      margin-top: 10px
-      background-color: #8aca6b
-      border-radius: 6px
+    .backButton
+      margin-top: 20px
+      margin-right: 20px
+      background-color: #888
+      border-radius: 8px
+      border: 1px solid white
       color: white
       font-size: 16px
       text-align: center
       outline: none
       cursor: pointer
-      padding: 6px 12px
+      padding: 8px 33px
+      @media(max-width: 500px)
+        margin-left: 0
+        margin-top: 10px
+
+      &:hover
+        background-color: #4e618d
+
+    .btnOffer
+      margin-top: 10px
+      background-color: #8aca6b
+      border-radius: 8px
+      border: 1px solid white
+      color: white
+      font-size: 16px
+      text-align: center
+      outline: none
+      cursor: pointer
+      padding: 8px 12px
       @media(max-width: 500px)
         margin-left: 0
         margin-top: 10px
@@ -97,11 +117,12 @@
           background-color: #66afe9
 
         label
-          padding: 5px 10px
+          margin-top: 15px
+          padding: 8px 12px
           color: white
           background-color: #455a89
-          border-radius: 4px
-          align-self: flex-end
+          border-radius: 8px
+          align-self: flex-start
           cursor: pointer
 
           &:hover

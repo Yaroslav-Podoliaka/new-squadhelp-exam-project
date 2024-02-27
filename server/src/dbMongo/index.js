@@ -13,7 +13,7 @@ const basename = path.basename(__filename);
 
 mongoose
   .connect(`mongodb://${config.host}:${config.port}/${config.database}`)
-  .then(() => console.log(`Connection to DB <<< ${config.database} >>> is Ok`))
+  .then(() => console.log(`Connection to DB <<< ${config.database.toUpperCase()} >>> is Ok`))
   .catch((err) => console.log(err));
 
 fs.readdirSync(__dirname)

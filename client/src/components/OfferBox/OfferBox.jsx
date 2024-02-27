@@ -207,7 +207,7 @@ const OfferBox = (props) => {
       {props.needButtons(data.status) && (
         <div className={styles.btnsContainer}>
           <div onClick={resolveOffer} className={styles.resolveBtn}>
-            Resolve
+            Accept
           </div>
           <div onClick={rejectOffer} className={styles.rejectBtn}>
             Reject
@@ -217,13 +217,6 @@ const OfferBox = (props) => {
     </div>
   );
 };
-
-const mapDispatchToProps = (dispatch) => ({
-  changeMark: (data) => dispatch(changeMark(data)),
-  clearError: () => dispatch(clearChangeMarkError()),
-  goToExpandedDialog: (data) => dispatch(goToExpandedDialog(data)),
-  changeShowImage: (data) => dispatch(changeShowImage(data)),
-});
 
 const mapStateToProps = (state) => {
   const { changeMarkError } = state.contestByIdStore;
@@ -236,6 +229,13 @@ const mapStateToProps = (state) => {
     messagesPreview,
   };
 };
+
+const mapDispatchToProps = (dispatch) => ({
+  changeMark: (data) => dispatch(changeMark(data)),
+  clearError: () => dispatch(clearChangeMarkError()),
+  goToExpandedDialog: (data) => dispatch(goToExpandedDialog(data)),
+  changeShowImage: (data) => dispatch(changeShowImage(data)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(OfferBox);
 

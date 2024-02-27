@@ -39,7 +39,7 @@ router.post(
   userController.payment,
 );
 
-router.get(
+router.post(
   '/getCustomersContests',
   checkToken.checkToken,
   contestController.getCustomersContests,
@@ -52,7 +52,7 @@ router.get(
   contestController.getContestById,
 );
 
-router.get(
+router.post(
   '/getAllContests',
   checkToken.checkToken,
   basicMiddlewares.onlyForCreative,
@@ -119,7 +119,7 @@ router.post(
   chatController.addMessage,
 );
 
-router.get(
+router.post(
   '/getChat',
   checkToken.checkToken,
   chatController.getChat,

@@ -25,6 +25,11 @@ module.exports = {
           key: 'id',
         },
       },
+      // rating: {
+      //   type: Sequelize.FLOAT,
+      //   allowNull: false,
+      //   defaultValue: 0,
+      // },
       text: {
         type: Sequelize.STRING,
         allowNull: true,

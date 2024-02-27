@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect/**, useRef**/ } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Header from '../../components/Header/Header';
@@ -9,23 +9,33 @@ import styles from './Home.module.sass';
 import carouselConstants from '../../carouselConstants';
 import Spinner from '../../components/Spinner/Spinner';
 
-const Home = props => {
+const Home = (props) => {
+  // Инициализация состояния index с помощью хука useState
   const [index, setIndex] = useState(0);
+  // Инициализация состояния styleName с помощью хука useState
   const [styleName, setStyle] = useState(styles.headline__static);
-  let timeout;
+  // const timeoutRef = useRef();
 
   useEffect(() => {
-    timeout = setInterval(() => {
-      setIndex(index + 1);
+    // Установка интервала с помощью setInterval
+    const timeoutRef = setInterval(() => {
+      // Увеличение значения index на 1
+      setIndex(index => index + 1);
+      // Установка стиля headline__isloading
       setStyle(styles.headline__isloading);
     }, 3000);
+    // Функция для очистки интервала при размонтировании компонента
     return () => {
+      // Возвращение стиля headline__static
       setStyle(styles.headline__static);
-      clearInterval(timeout);
+      // Очистка интервала
+      clearInterval(timeoutRef);
     };
-  });
+    // Пустой массив зависимостей, чтобы useEffect выполнился только при монтировании компонента
+  }, []);
 
   const { isFetching } = props;
+  // Получение текста для анимации заголовка
   const text =
     CONSTANTS.HEADER_ANIMATION_TEXT[
       index % CONSTANTS.HEADER_ANIMATION_TEXT.length
@@ -265,7 +275,7 @@ const Home = props => {
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const { isFetching } = state.userStore;
   return { isFetching };
 };

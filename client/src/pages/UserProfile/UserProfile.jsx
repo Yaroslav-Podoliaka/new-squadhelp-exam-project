@@ -1,14 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
-import Header from '../../components/Header/Header';
-import styles from './UserProfile.module.sass';
+// import Header from '../../components/Header/Header';
 import CONSTANTS from '../../constants';
 import UserInfo from '../../components/UserInfo/UserInfo';
 import PayForm from '../../components/PayForm/PayForm';
 import { cashOut, clearPaymentStore } from '../../store/slices/paymentSlice';
 import { changeProfileViewMode } from '../../store/slices/userProfileSlice';
 import Error from '../../components/Error/Error';
+import styles from './UserProfile.module.sass';
 
 const UserProfile = (props) => {
   const pay = (values) => {
@@ -31,7 +31,7 @@ const UserProfile = (props) => {
   } = props;
   return (
     <div>
-      <Header />
+      {/* <Header /> */}
       <div className={styles.mainContainer}>
         <div className={styles.aside}>
           <span className={styles.headerAside}>Select Option</span>

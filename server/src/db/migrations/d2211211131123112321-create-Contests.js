@@ -89,7 +89,7 @@ module.exports = {
       updatedAt: {
         allowNull: true,
         type: Sequelize.DATE,
-        // defaultValue: Sequelize.NOW,
+        defaultValue: Sequelize.NOW,
       },
     });
   },

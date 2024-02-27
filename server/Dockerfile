@@ -16,6 +16,6 @@ RUN npm install && chown -R node:node /server/node_modules
 
 COPY . .
 
-EXPOSE 3000
+EXPOSE 5000
 
 CMD npm start

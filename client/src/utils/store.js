@@ -1,14 +1,14 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-
+// Ожидание, идет процесс получения данных, очищаются любые предыдущие ошибки.
 export const pendingReducer = state => {
   state.isFetching = true;
   state.error = null;
 };
-
+// Процесс получения данных удачно завершен.
 export const fulfilledReducer = state => {
   state.isFetching = false;
 };
-
+// Процесс получения данных не удался, сохраняет информацию об ошибке.
 export const rejectedReducer = (state, { payload }) => {
   state.isFetching = false;
   state.error = payload;
@@ -53,6 +53,7 @@ export const createExtraReducers = ({
   fulfilledReducer,
   rejectedReducer,
 }) => builder => {
+  // Добавление дополнительных reducers для обработки состояний pending, fulfilled и rejected thunk.
   pendingReducer && builder.addCase(thunk.pending, pendingReducer);
   fulfilledReducer && builder.addCase(thunk.fulfilled, fulfilledReducer);
   rejectedReducer && builder.addCase(thunk.rejected, rejectedReducer);

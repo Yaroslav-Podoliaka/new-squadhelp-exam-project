@@ -5,7 +5,7 @@ import moment from 'moment';
 import styles from './ContestSideBar.module.sass';
 import CONSTANTS from '../../constants';
 
-const ContestSideBar = props => {
+const ContestSideBar = (props) => {
   const getTimeStr = () => {
     const diff = moment.duration(
       moment().diff(moment(props.contestData.createdAt))

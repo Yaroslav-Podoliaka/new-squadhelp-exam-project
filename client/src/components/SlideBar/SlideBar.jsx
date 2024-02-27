@@ -1,10 +1,11 @@
 import React from 'react';
+// import { useNavigate } from 'react-router-dom';
 import Flickity from 'react-flickity-component';
 import style from './SlideBar.module.sass';
 import carouselConstants from '../../carouselConstants';
 import './flickity.css';
 
-const SliderBar = props => {
+const SliderBar = (props) => {
   const options = {
     draggable: true,
     wrapAround: true,
@@ -15,6 +16,8 @@ const SliderBar = props => {
     lazyLoad: true,
   };
 
+  // const navigate = useNavigate();
+
   const getStyleName = () => {
     const { carouselType } = props;
     switch (carouselType) {
@@ -24,6 +27,8 @@ const SliderBar = props => {
         return style.exampleCarousel;
       case carouselConstants.FEEDBACK_SLIDER:
         return style.feedbackCarousel;
+      default:
+        return '';
     }
   };
 
@@ -57,6 +62,8 @@ const SliderBar = props => {
           </div>
         ));
       }
+      default:
+        return null;
     }
   };
   return (

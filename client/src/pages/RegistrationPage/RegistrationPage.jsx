@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link /**useNavigate**/ } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Logo from '../../components/Logo';
 import RegistrationForm from '../../components/RegistrationForm/RegistrationForm';
-import styles from './RegistrationPage.module.sass';
 import { clearAuthError } from '../../store/slices/authSlice';
 import CONSTANTS from '../../constants';
+import styles from './RegistrationPage.module.sass';
 
-const RegistrationPage = ({clearError}) => {
-  const navigate = useNavigate();
+const RegistrationPage = ({ clearError, navigate }) => {
+  // const navigate = useNavigate();
   // Очищаем ошибки аутентификации при монтировании компонента
   useEffect(() => {
     clearError();
@@ -22,13 +22,13 @@ const RegistrationPage = ({clearError}) => {
           <Logo src={`${CONSTANTS.STATIC_IMAGES_PATH}logo.png`} />
           <div className={styles.linkLoginContainer}>
             {/* Ссылка на страницу входа */}
-            <Link to='/login' style={{ textDecoration: 'none' }}>
+            <Link to="/login" style={{ textDecoration: 'none' }}>
               <span>Login</span>
             </Link>
           </div>
         </div>
         {/* Компонент формы регистрации */}
-        <RegistrationForm history={navigate} />
+        <RegistrationForm navigate={navigate} />
       </div>
       <div className={styles.footer}>
         {/* Секция статей */}
@@ -115,10 +115,10 @@ const RegistrationPage = ({clearError}) => {
             </div>
             <div className={styles.article}>
               Check out our <span className={styles.orangeSpan}>FAQs</span> or
-              send us a<span className={styles.orangeSpan}>message</span>. For
+              send us a <span className={styles.orangeSpan}>message</span>. For
               assistance with launching a contest, you can also call us at (877)
-              355-3585 or schedule a
-              <span className={styles.orangeSpan}>Branding Consultation</span>
+              355-3585 or schedule a{' '}
+              <span className={styles.orangeSpan}>Branding Consultation</span>.
             </div>
           </div>
         </div>
@@ -133,7 +133,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 // Подключаем компонент к Redux store
 export default connect(null, mapDispatchToProps)(RegistrationPage);
-
 
 // import React from 'react';
 // import { Link } from 'react-router-dom';

@@ -59,7 +59,7 @@ export default {
       .required('Display Name is required'),
     role: yup
       .string()
-      .matches(/(customer|creator)/)
+      .matches(/(customer|creator|moderator)/)
       .required('Role is required'),
     agreeOfTerms: yup
       .boolean()
@@ -67,7 +67,13 @@ export default {
       .required('Must Accept Terms and Conditions'),
   }),
   ContestSchem: yup.object({
-    nameVenture: yup.string().min(3),
+    nameVenture: yup.string().min(3)
+    .test(
+      'test-nameVenture',
+      'required',
+      value => value && value.trim().length >= 1
+    )
+    .required('Name of venture is required'),
     contestType: yup
       .string()
       .matches(/(name|tagline|logo)/)
@@ -125,11 +131,12 @@ export default {
   PaymentSchema: yup.object().shape({
     number: yup
       .string()
-      .test(
-        'test-cardNumber',
-        'Credit Card number is invalid',
-        value => valid.number(value).isValid
-      )
+      // .max(19)
+      // .test(
+      //   'test-cardNumber',
+      //   'Credit Card number is invalid',
+      //   value => valid.number(value).isValid
+      // )
       .required('required'),
     name: yup
       .string()

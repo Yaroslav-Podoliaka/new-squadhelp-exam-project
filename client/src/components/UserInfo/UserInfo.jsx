@@ -48,7 +48,7 @@ const UserInfo = (props) => {
               <span className={styles.info}>{displayName}</span>
             </div>
             <div className={styles.infoBlock}>
-              <span className={styles.label}>Email</span>
+              <span className={styles.label}>Email:</span>
               <span className={styles.info}>{email}</span>
             </div>
             <div className={styles.infoBlock}>

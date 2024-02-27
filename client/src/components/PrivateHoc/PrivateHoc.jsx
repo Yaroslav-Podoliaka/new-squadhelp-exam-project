@@ -1,80 +1,44 @@
-// import React, { useEffect } from 'react';
-// import { useNavigate } from 'react-router-dom';
-// import { connect } from 'react-redux';
-// import Spinner from '../Spinner/Spinner';
-// import { getUser } from '../../store/slices/userSlice';
-// // import LoginPage from '../../pages/LoginPage/LoginPage';
-// // Компонент для обертки других компонентов, требующих аутентификации
-// const PrivateHoc = (Component, props) => {
-//   const navigate = useNavigate();
-// // Функциональный компонент Hoc
-//   const Hoc = ({data, getUser, isFetching, match}) => {
-// // useEffect для выполнения действий после первого рендера
-//     useEffect(() => {
-//       // Если данные о пользователе отсутствуют, вызываем экшен для их получения
-//       if (!data) {
-//         getUser();
-//       }
-//     }, [data, getUser]);
-    
-//       return (
-//         <>
-//           {isFetching && <Spinner />}
-//           {isFetching && (
-//             // Если данные загружены, передаем их внутреннему компоненту
-//             <Component history={navigate} match={match} {...props} />
-//           )}
-//         </>
-//       );
-//   };
-// // Функция mapStateToProps для получения данных из Redux Store
-//   const mapStateToProps = (state) => state.userStore;
-// // Функция mapDispatchToProps для отправки экшенов в Redux Store
-//   const mapDispatchToProps = (dispatch) => ({
-//     // Экшен для получения данных пользователя
-//     getUser: () => dispatch(getUser()),
-//   });
-// // Соединяем компонент Hoc с Redux Store
-//   return connect(mapStateToProps, mapDispatchToProps)(Hoc);
-// };
-
-// export default PrivateHoc;
-
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { /**useNavigate,**/ useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getUser } from '../../store/slices/userSlice';
 import Spinner from '../Spinner/Spinner';
+import Header from '../Header/Header';
 
-const PrivateHoc = ({isFetching, data, getUser, component: Component, ...rest}) => {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    getUser();
-  }, [getUser]);
+const PrivateHoc = ({isFetching, data, getUser, navigate, component: Component, ...rest}) => {
+  // const navigate = useNavigate();
+  const params = useParams();
 
   useEffect(() => {
-    if (!isFetching && !data) {
-      // navigate('/login');
+    if (!data) {
+      getUser();
     }
-  }, [data, isFetching/**, navigate**/]);
+  }, [data, getUser]);
 
   if (isFetching) {
     return <Spinner />;
   }
-
-  return <Component history={navigate} {...rest} />;
+  // Если данные загружены, передаем их внутреннему компоненту
+  return (
+    <>
+      <Header />
+      <Component navigate={navigate} params={params} {...rest} />
+    </>
+  )
 };
+// Функция mapStateToProps для получения данных из Redux Store
   const mapStateToProps = (state) => ({
-    dana: state.userStore.data,
+    data: state.userStore.data,
     isFetching: state.userStore.isFetching,
   });
-
+// Функция mapDispatchToProps для отправки экшенов в Redux Store
   const mapDispatchToProps = (dispatch) => ({
+    // Экшен для получения данных пользователя
     getUser: () => dispatch(getUser()),
   });
-
+// Соединяем компонент PrivateHoc с Redux Store
 export default connect(mapStateToProps, mapDispatchToProps)(PrivateHoc);
+
 
 // import React from 'react';
 // import { connect } from 'react-redux';

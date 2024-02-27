@@ -10,7 +10,7 @@ WORKDIR /client
 
 COPY . .
 
-EXPOSE 5000
+EXPOSE 3000
 
 RUN npm install && chown -R node:node /client/node_modules
 

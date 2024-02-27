@@ -2,8 +2,9 @@ const fs = require('fs');
 const path = require('path');
 const multer = require('multer');
 const ServerError = require('../errors/ServerError');
+
 const env = process.env.NODE_ENV || 'development';
-const devFilePath = path.resolve(__dirname, '..', '..', '..', 'public/images');
+const devFilePath = path.join(__dirname, '..', '..', 'public/images');
 
 const filePath = env === 'production'
   ? '/var/www/html/images/'
@@ -16,11 +17,11 @@ if (!fs.existsSync(filePath)) {
 }
 
 const storageContestFiles = multer.diskStorage({
-  destination (req, file, cb) {
+  destination: (req, file, cb) => {
     cb(null, filePath);
   },
-  filename (req, file, cb) {
-    cb(null, Date.now() + file.originalname);
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}-${file.originalname}`);
   },
 });
 

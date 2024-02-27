@@ -2,13 +2,13 @@ import React from 'react';
 import { Form, Formik } from 'formik';
 import { connect } from 'react-redux';
 import { clearUserError } from '../../store/slices/userSlice';
-import styles from './UpdateUserInfoForm.module.sass';
 import ImageUpload from '../InputComponents/ImageUpload/ImageUpload';
 import FormInput from '../FormInput/FormInput';
 import Schems from '../../utils/validators/validationSchems';
 import Error from '../Error/Error';
+import styles from './UpdateUserInfoForm.module.sass';
 
-const UpdateUserInfoForm = props => {
+const UpdateUserInfoForm = (props) => {
   const { onSubmit, submitting, error, clearUserError } = props;
   return (
     <Formik
@@ -16,7 +16,7 @@ const UpdateUserInfoForm = props => {
       initialValues={props.initialValues}
       validationSchema={Schems.UpdateUserSchema}
     >
-      <Form className={styles.updateContainer}>
+      <Form className={styles.updateContainer} enctype='multipart/form-data'>
         {error && (
           <Error
             data={error.data}

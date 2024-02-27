@@ -15,93 +15,90 @@ import UserProfile from './pages/UserProfile/UserProfile';
 import 'react-toastify/dist/ReactToastify.css';
 import ContestCreationPage from './pages/ContestCreation/ContestCreationPage';
 import CONSTANTS from './constants';
-import browserHistory from './browserHistory';
+// import browserHistory from './browserHistory';
+import { ProvideNavigate } from './browserHistory';
 import ChatContainer from './components/Chat/ChatComponents/ChatContainer/ChatContainer';
 import './App.css';
 
 const App = () => {
   return (
-    <Router history={browserHistory}>
-      <ToastContainer
-        position='top-center'
-        autoClose={5000}
-        hideProgressBar
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnVisibilityChange
-        draggable
-        pauseOnHover
-      />
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route
-          path='/login'
-          element={<OnlyNotAuthorizedUserHoc component={LoginPage} />}
+    <Router navigator={ProvideNavigate} /**history={browserHistory}**/>
+      <>
+        <ToastContainer
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnVisibilityChange
+          draggable
+          pauseOnHover
         />
-        <Route
-          path='/registration'
-          element={<OnlyNotAuthorizedUserHoc component={RegistrationPage} />}
-        />
-        <Route
-          path='/payment'
-          element={<PrivateHoc component={Payment} />}
-        />
-        <Route
-          path='/startContest*'
-          element={<PrivateHoc component={StartContestPage} />}
-        />
-        <Route
-          path='/startContest/nameContest'
-          element={
-            <PrivateHoc>
-              <ContestCreationPage
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route
+            path="/login"
+            element={<OnlyNotAuthorizedUserHoc component={LoginPage} />}
+          />
+          <Route
+            path="/registration"
+            element={<OnlyNotAuthorizedUserHoc component={RegistrationPage} />}
+          />
+          <Route path="/payment" element={<PrivateHoc component={Payment} />} />
+          <Route
+            path="/startContest"
+            element={<PrivateHoc component={StartContestPage} />}
+          />
+          <Route
+            path="/startContest/nameContest"
+            element={
+              <PrivateHoc
+                component={ContestCreationPage}
                 contestType={CONSTANTS.NAME_CONTEST}
-                title='Company Name'
+                title="Company Name"
               />
-            </PrivateHoc>
-          }
-        />
-        <Route
-          path='/startContest/taglineContest'
-          element={
-            <PrivateHoc>
-              <ContestCreationPage
+            }
+          />
+          <Route
+            path="/startContest/taglineContest"
+            element={
+              <PrivateHoc
+                component={ContestCreationPage}
                 contestType={CONSTANTS.TAGLINE_CONTEST}
-                title='TAGLINE'
+                title="TAGLINE"
               />
-            </PrivateHoc>
-          }
-        />
-        <Route
-          path='/startContest/logoContest'
-          element={
-            <PrivateHoc>
-              <ContestCreationPage
+            }
+          />
+          <Route
+            path="/startContest/logoContest"
+            element={
+              <PrivateHoc
+                component={ContestCreationPage}
                 contestType={CONSTANTS.LOGO_CONTEST}
-                title='LOGO'
+                title="LOGO"
               />
-            </PrivateHoc>
-          }
-        />
-        <Route
-          path='/dashboard'
-          element={<PrivateHoc component={Dashboard} />}
-        />
-        <Route
-          path='/contest/:id'
-          element={<PrivateHoc component={ContestPage} />}
-        />
-        <Route
-          path='/account'
-          element={<PrivateHoc component={UserProfile} />}
-        />
-        <Route path='*' element={<NotFound />} />
-      </Routes>
+            }
+          />
+          <Route
+            path="/dashboard"
+            element={<PrivateHoc component={Dashboard} />}
+          />
+          <Route
+            path="/contest/:id"
+            element={<PrivateHoc component={ContestPage} />}
+          />
+          <Route
+            path="/account"
+            element={<PrivateHoc component={UserProfile} />}
+          />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </>
       <ChatContainer />
     </Router>
   );
-}
+};
 
 export default App;
 

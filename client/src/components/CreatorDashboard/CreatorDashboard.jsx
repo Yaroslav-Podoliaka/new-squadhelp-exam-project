@@ -1,5 +1,5 @@
-import React, { useEffect, useCallback, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useCallback, useRef, useState } from 'react';
+// import { useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
 import classNames from 'classnames';
@@ -12,22 +12,23 @@ import {
 import { getDataForContest } from '../../store/slices/dataForContestSlice';
 import ContestsContainer from '../ContestsContainer/ContestsContainer';
 import ContestBox from '../ContestBox/ContestBox';
-import styles from './CreatorDashboard.module.sass';
 import TryAgain from '../TryAgain/TryAgain';
 import CONSTANTS from '../../constants';
-
+import styles from './CreatorDashboard.module.sass';
+// Массив типов контестов
 const types = [
   '',
-  'name,tagline,logo',
+  'name, tagline, logo',
   'name',
   'tagline',
   'logo',
-  'name,tagline',
-  'logo,tagline',
-  'name,logo',
+  'name, tagline',
+  'logo, tagline',
+  'name, logo',
 ];
 
 const CreatorDashboard = ({
+  navigate,
   location,
   contests,
   creatorFilter,
@@ -40,28 +41,38 @@ const CreatorDashboard = ({
   newFilter,
   getDataForContest,
 }) => {
-  const navigate = useNavigate();
-  const prevLocationSearchRef = useRef(location.search);
-
-  const parseParamsToUrl = useCallback((creatorFilter) => {
+  // const navigate = useNavigate();
+  // Создание рефа для отслеживания предыдущего значения параметров поиска
+  const prevLocationSearchRef = useRef(location?.search);
+  const [loading, setLoading] = useState(false);
+  const [prevCreatorFilter, setCreatorFilter] = useState(null);
+  // Добавляем состояние для ключа
+  // const [containerKey, setContainerKey] = useState(0);
+  
+  // Функция для обновления параметров в URL
+  const parseParamsToUrl = (creatorFilter) => {
     const obj = {};
+    // Формирование объекта параметров из объекта фильтра
     Object.keys(creatorFilter).forEach((el) => {
       if (creatorFilter[el]) obj[el] = creatorFilter[el];
     });
+    // Навигация по URL с использованием параметров
     navigate(`/Dashboard?${queryString.stringify(obj)}`);
-  }, [navigate]);
-
-  const changePredicate = useCallback(({ name, value }) => {
+  };
+  // Функция для изменения предиката фильтрации
+  const changePredicate = ({ name, value }) => {
+    // Обновление фильтра с новым значением
     newFilter({
       [name]: value === 'Choose industry' ? null : value,
     });
+    // Обновление параметров URL
     parseParamsToUrl({
       ...creatorFilter,
       ...{ [name]: value === 'Choose industry' ? null : value },
     });
-  }, [creatorFilter, newFilter, parseParamsToUrl]);
-
-  const renderSelectType = useCallback(() => {
+  };
+  // Функция для отрисовки выпадающего списка типов контестов
+  const renderSelectType = () => {
     const array = [];
     types.forEach(
       (el, i) =>
@@ -86,17 +97,20 @@ const CreatorDashboard = ({
         {array}
       </select>
     );
-  }, [creatorFilter.typeIndex, changePredicate]);
-
-  const renderIndustryType = useCallback(() => {
+  };
+  // Функция для отрисовки выпадающего списка отраслей
+  const renderIndustryType = () => {
     const array = [];
-    const { industry } = dataForContest.data;
+    const industryData = dataForContest.data;
+    if (!industryData) {
+      return null;
+    }
     array.push(
-      <option key={0} value={null}>
+      <option key={0} value="">
         Choose industry
       </option>
     );
-    industry.forEach((industry, i) =>
+    industryData.industry.forEach((industry, i) =>
       array.push(
         <option key={i + 1} value={industry}>
           {industry}
@@ -111,34 +125,42 @@ const CreatorDashboard = ({
             value: target.value,
           })
         }
-        value={creatorFilter.industry}
+        value={creatorFilter.industry || ''}
         className={styles.input}
       >
         {array}
       </select>
     );
-  }, [creatorFilter.industry, dataForContest.data, changePredicate]);
-
-  const parseUrlForParams = useCallback((search) => {
-    const obj = queryString.parse(search);
-    const filter = {
-      typeIndex: obj.typeIndex || 1,
-      contestId: obj.contestId ? obj.contestId : '',
-      industry: obj.industry ? obj.industry : '',
-      awardSort: obj.awardSort || 'asc',
-      ownEntries:
-        typeof obj.ownEntries === 'undefined' ? false : obj.ownEntries,
-    };
-    if (!isEqual(filter, creatorFilter)) {
-      newFilter(filter);
-      clearContestsList();
-      getContests(filter);
-      return false;
-    }
-    return true;
-  }, [clearContestsList, creatorFilter, getContests, newFilter]);
-
-  const getPredicateOfRequest = useCallback(() => {
+  };
+  // Мемоизированная функция для обработки параметров URL
+  const parseUrlForParams = useCallback(
+    (search) => {
+      // Разбор параметров поиска
+      const obj = queryString.parse(search);
+      // Формирование объекта фильтра
+      const filter = {
+        typeIndex: obj.typeIndex || 1,
+        contestId: obj.contestId ? obj.contestId : '',
+        industry: obj.industry ? obj.industry : '',
+        awardSort: obj.awardSort || 'asc',
+        ownEntries:
+          typeof obj.ownEntries === 'undefined' ? false : obj.ownEntries,
+      };
+      // Проверка на изменение фильтра
+      if (!isEqual(filter, creatorFilter)) {
+        // Обновление фильтра и очистка списка контестов
+        newFilter(filter);
+        clearContestsList();
+        // Загрузка контестов с новым фильтром
+        getContests(filter);
+        return false;
+      }
+      return true;
+    },
+    [clearContestsList, creatorFilter, getContests, newFilter]
+  );
+  // Функция для получения предиката запроса
+  const getPredicateOfRequest = () => {
     const obj = {};
     Object.keys(creatorFilter).forEach((el) => {
       if (creatorFilter[el]) {
@@ -147,151 +169,203 @@ const CreatorDashboard = ({
     });
     obj.ownEntries = creatorFilter.ownEntries;
     return obj;
-  }, [creatorFilter]);
-
-  const loadMore = useCallback((startFrom) => {
-    getContests({
-      limit: 8,
-      offset: startFrom,
-      ...getPredicateOfRequest(),
-    });
-  }, [getContests, getPredicateOfRequest]);
-
-  const goToExtended = useCallback((contestId) => {
-    navigate(`/contest/${contestId}`);
-  }, [navigate]);
-
-  const setContestList = useCallback(() => {
-    const array = [];
-    for (let i = 0; i < contests.length; i++) {
-      array.push(
-        <ContestBox
-          data={contests[i]}
-          key={contests[i].id}
-          goToExtended={goToExtended}
-        />
-      );
+  };
+  // Функция для загрузки дополнительных контестов
+  const loadMore = (startFrom) => {
+    // getContests({
+    //   limit: 8,
+    //   offset: startFrom,
+    //   ...getPredicateOfRequest(),
+    // });
+    if (!loading) {
+      setLoading(true);
+      getContests({
+        limit: 8,
+        offset: startFrom,
+        ...getPredicateOfRequest(),
+      });
     }
-    return array;
-  }, [contests, goToExtended]);
-
-  const tryLoadAgain = useCallback(() => {
+  };
+  // Функция для перехода к расширенному виду контеста
+  const goToExtended = (contestId) => {
+    navigate(`/contest/${contestId}`);
+  };
+  // Функция для создания списка компонентов ContestBox
+  const setContestList = () => {
+    console.log('CreatorDascboard contests: ', contests);
+    return contests.map((contest) => (
+      <ContestBox
+        data={contest}
+        key={contest.id}
+        goToExtended={goToExtended} />
+    ));
+  };
+  // const setContestList = () => {
+  //   console.log('CreatorDascboard contests: ', contests);
+  //   const array = [];
+  //   for (let i = 0; i < contests.length; i++) {
+  //     array.push(
+  //       <ContestBox
+  //         data={contests[i]}
+  //         key={contests[i].id}
+  //         goToExtended={goToExtended}
+  //       />
+  //     );
+  //   }
+  //   return array;
+  // };
+  // Функция для повторной загрузки контестов после ошибки
+  const tryLoadAgain = () => {
     clearContestsList();
     getContests({
       limit: 8,
       offset: 0,
       ...getPredicateOfRequest(),
     });
-  }, [clearContestsList, getContests, getPredicateOfRequest]);
-
+  };
+  // Инициализация данных при загрузке компонента и обработки параметров URL
   useEffect(() => {
     getDataForContest();
-    if(parseUrlForParams(location.search) && !contests.length) {
+    // Если параметры URL изменились и список контестов пуст, загрузить контесты
+    if (location && parseUrlForParams(location.search) && !contests.length) {
       getContests(creatorFilter);
     }
-  }, [getDataForContest, location.search, parseUrlForParams, contests, creatorFilter, getContests]);
+  }, [
+    getDataForContest,
+    location,
+    // location?.search,
+    parseUrlForParams,
+    contests.length,
+    creatorFilter,
+    getContests,
+  ]);
+  // Обработка изменений параметров URL
+  useEffect(() => {
+    // getDataForContest();
+    // Если параметры URL изменились, обработать их
+    if (prevLocationSearchRef.current !== location?.search) {
+      parseUrlForParams(location?.search);
+    }
+    prevLocationSearchRef.current = location?.search;
+  }, [/**getDataForContest,**/ location?.search, parseUrlForParams]);
 
   useEffect(() => {
-    getDataForContest();
-    if(prevLocationSearchRef.current !== location.search) {
-      parseUrlForParams(location.search);
+    if (creatorFilter !== prevCreatorFilter) {
+      clearContestsList();
+      getContests({
+        limit: 8,
+        offset: 0,
+        ...creatorFilter,
+      });
+      setCreatorFilter(creatorFilter);
     }
-    prevLocationSearchRef.current = location.search;
-  }, [getDataForContest, location.search, parseUrlForParams]);
+  },[creatorFilter, prevCreatorFilter, clearContestsList, getContests]);
 
-    return (
-      <div className={styles.mainContainer}>
-        <div className={styles.filterContainer}>
-          <span className={styles.headerFilter}>Filter Results</span>
-          <div className={styles.inputsContainer}>
-            <div
-              onClick={() =>
+  useEffect(() => {
+    if (haveMore) {
+      setLoading(false);
+    }
+  },[haveMore]);
+
+  // useEffect(() => {
+  //   // Увеличиваем ключ при изменении фильтра
+  //   setContainerKey((prevKey) => prevKey + 1);
+  // }, [creatorFilter]);
+
+  return (
+    <div className={styles.mainContainer}>
+      <div className={styles.filterContainer}>
+        <span className={styles.headerFilter}>Filter Results</span>
+        <div className={styles.inputsContainer}>
+          <div
+            onClick={() =>
+              changePredicate({
+                name: 'ownEntries',
+                value: !creatorFilter.ownEntries,
+              })
+            }
+            className={classNames(styles.myEntries, {
+              [styles.activeMyEntries]: creatorFilter.ownEntries,
+            })}
+          >
+            My Entries
+          </div>
+          <div className={styles.inputContainer}>
+            <span>By contest type</span>
+            {renderSelectType()}
+          </div>
+          <div className={styles.inputContainer}>
+            <span>By contest ID</span>
+            <input
+              type="text"
+              onChange={({ target }) =>
                 changePredicate({
-                  name: 'ownEntries',
-                  value: !creatorFilter.ownEntries,
+                  name: 'contestId',
+                  value: target.value,
                 })
               }
-              className={classNames(styles.myEntries, {
-                [styles.activeMyEntries]: creatorFilter.ownEntries,
-              })}
+              name="contestId"
+              value={creatorFilter.contestId}
+              className={styles.input}
+            />
+          </div>
+          {!isFetching && (
+            <div className={styles.inputContainer}>
+              <span>By industry</span>
+              {renderIndustryType()}
+            </div>
+          )}
+          <div className={styles.inputContainer}>
+            <span>By amount award</span>
+            <select
+              onChange={({ target }) =>
+                changePredicate({
+                  name: 'awardSort',
+                  value: target.value,
+                })
+              }
+              value={creatorFilter.awardSort}
+              className={styles.input}
             >
-              My Entries
-            </div>
-            <div className={styles.inputContainer}>
-              <span>By contest type</span>
-              {renderSelectType()}
-            </div>
-            <div className={styles.inputContainer}>
-              <span>By contest ID</span>
-              <input
-                type="text"
-                onChange={({ target }) =>
-                  changePredicate({
-                    name: 'contestId',
-                    value: target.value,
-                  })
-                }
-                name="contestId"
-                value={creatorFilter.contestId}
-                className={styles.input}
-              />
-            </div>
-            {!isFetching && (
-              <div className={styles.inputContainer}>
-                <span>By industry</span>
-                {renderIndustryType()}
-              </div>
-            )}
-            <div className={styles.inputContainer}>
-              <span>By amount award</span>
-              <select
-                onChange={({ target }) =>
-                  changePredicate({
-                    name: 'awardSort',
-                    value: target.value,
-                  })
-                }
-                value={creatorFilter.awardSort}
-                className={styles.input}
-              >
-                <option value="desc">Descending</option>
-                <option value="asc">Ascending</option>
-              </select>
-            </div>
+              <option value="desc">Descending</option>
+              <option value="asc">Ascending</option>
+            </select>
           </div>
         </div>
-        {error ? (
-          <div className={styles.messageContainer}>
-            <TryAgain getData={tryLoadAgain} />
-          </div>
-        ) : (
-          <ContestsContainer
-            isFetching={isFetching}
-            loadMore={loadMore}
-            haveMore={haveMore}
-          >
-            {setContestList()}
-          </ContestsContainer>
-        )}
       </div>
-    );
-}
-
+      {error ? (
+        <div className={styles.messageContainer}>
+          <TryAgain getData={tryLoadAgain} />
+        </div>
+      ) : (
+        <ContestsContainer
+          // key={containerKey} // Передаем ключ в ContestsContainer
+          isFetching={isFetching}
+          loadMore={loadMore}
+          haveMore={haveMore}
+          // navigate={navigate}
+        >
+          {setContestList()}
+        </ContestsContainer>
+      )}
+    </div>
+  );
+};
+// Функция сопоставления состояния Redux с свойствами компонента
 const mapStateToProps = (state) => {
   const { contestsList, dataForContest } = state;
   return { ...contestsList, dataForContest };
 };
-
+// Функция сопоставления действий Redux с свойствами компонента
 const mapDispatchToProps = (dispatch) => ({
   getContests: (data) =>
     dispatch(getContests({ requestData: data, role: CONSTANTS.CREATOR })),
-  clearContestsList: () => dispatch(clearContestsList()),
-  newFilter: (filter) => dispatch(setNewCreatorFilter(filter)),
-  getDataForContest: () => dispatch(getDataForContest()),
+    clearContestsList: () => dispatch(clearContestsList()),
+    newFilter: (filter) => dispatch(setNewCreatorFilter(filter)),
+    getDataForContest: () => dispatch(getDataForContest()),
 });
-
+// Подключение компонента к Redux
 export default connect(mapStateToProps, mapDispatchToProps)(CreatorDashboard);
-
 
 /**import React from 'react';
 import { withRouter } from 'react-router-dom';

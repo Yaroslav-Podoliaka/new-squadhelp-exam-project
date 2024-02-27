@@ -1,0 +1,21 @@
+GET http://localhost:5000/getUser HTTP/1.1
+
+###
+
+GET http://localhost:5000/getContestById HTTP/1.1
+
+###
+
+POST http://localhost:5000/registration HTTP/1.1
+Content-Type: application/json
+
+{
+  "firstName": "Ярослав",
+  "lastName": "Подоляка",
+  "displayName": "Ярослав",
+  "email": "p.yarcko@gmail.com",
+  "password": "654321",
+  "role": "creator"
+}
+
+###

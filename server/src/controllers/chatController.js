@@ -40,6 +40,7 @@ module.exports.addMessage = async (req, res, next) => {
       blackList: newConversation.blackList,
       favoriteList: newConversation.favoriteList,
     };
+    console.log('ddMessage interlocutorId: ', interlocutorId);
     controller.getChatController().emitNewMessage(interlocutorId, {
       message,
       preview: {
@@ -71,6 +72,7 @@ module.exports.addMessage = async (req, res, next) => {
 
 module.exports.getChat = async (req, res, next) => {
   const participants = [req.tokenData.userId, req.body.interlocutorId];
+  console.log('getChat participants: ', participants);
   participants.sort(
     (participant1, participant2) => participant1 - participant2);
   try {
@@ -155,7 +157,7 @@ module.exports.getPreview = async (req, res, next) => {
       interlocutors.push(conversation.participants.find(
         (participant) => participant !== req.tokenData.userId));
     });
-    const senders = await db.Users.findAll({
+    const senders = await db.User.findAll({
       where: {
         id: interlocutors,
       },

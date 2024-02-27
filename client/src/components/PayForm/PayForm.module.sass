@@ -34,29 +34,36 @@
 
     .payButton
       font-size: 20px
-      padding: 8px 50px
+      padding: 8px 55px
       cursor: pointer
       background-color: #f3875d
       text-align: center
       line-height: 1.4
       color: white
       border: 1px solid transparent
-      border-radius: 4px
+      border-radius: 10px
       @media(max-width: 480px)
         padding: 8px 30px
+
+      &:hover
+        color: black
 
     .backButton
       background-color: #ababac
       font-size: 20px
-      padding: 8px 50px
+      padding: 8px 75px
+      cursor: pointer
       line-height: 1.4
       text-align: center
       border: 1px solid transparent
-      border-radius: 4px
+      border-radius: 10px
       color: white
       margin-left: 10px
       @media(max-width: 480px)
         padding: 8px 30px
+
+      &:hover
+        color: black
 
   .totalSum
     margin-top: 25px
@@ -106,7 +113,7 @@
             font-size: 14px
 
           .notValid
-            border: 1px solid red
+            border: 2px solid red
 
         input
           display: inline-block
@@ -154,7 +161,7 @@
           font-size: 14px
 
         .notValid
-          border: 1px solid red
+          border: 2px solid red
 
       span
         font-weight: 400

@@ -1,16 +1,16 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Form, Formik } from 'formik';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { checkAuth, clearAuth } from '../../store/slices/authSlice';
-import styles from './LoginForm.module.sass';
 import FormInput from '../FormInput/FormInput';
 import Schems from '../../utils/validators/validationSchems';
 import Error from '../Error/Error';
 import CONSTANTS from '../../constants';
+import styles from './LoginForm.module.sass';
 
-const LoginForm = ({auth, loginRequest, authClear}) => {
-  const navigate = useNavigate();
+const LoginForm = ({ auth, loginRequest, authClear, navigate }) => {
+  // const navigate = useNavigate();
 
   useEffect(() => {
     return () => {
@@ -19,64 +19,60 @@ const LoginForm = ({auth, loginRequest, authClear}) => {
   }, [authClear]);
 
   const clicked = (values) => {
-    loginRequest({ data: values, history: navigate });
+    loginRequest({ data: values, navigate: navigate });
   };
 
-    const { error, isFetching } = auth;
-    const { submitting } = auth;
+  const { error, isFetching } = auth;
+  const { submitting } = auth;
 
-    const formInputClasses = {
-      container: styles.inputContainer,
-      input: styles.input,
-      warning: styles.fieldWarning,
-      notValid: styles.notValid,
-      valid: styles.valid,
-    };
+  const formInputClasses = {
+    container: styles.inputContainer,
+    input: styles.input,
+    warning: styles.fieldWarning,
+    notValid: styles.notValid,
+    valid: styles.valid,
+  };
 
-    return (
-      <div className={styles.loginForm}>
-        {error && (
-          <Error
-            data={error.data}
-            status={error.status}
-            clearError={authClear}
+  return (
+    <div className={styles.loginForm}>
+      {error && /**error.data && error.status &&**/ (
+        <Error data={error.data} status={error.status} clearError={authClear} />
+      )}
+      <h2>LOGIN TO YOUR ACCOUNT</h2>
+      <Formik
+        initialValues={{
+          email: '',
+          password: '',
+        }}
+        onSubmit={clicked}
+        validationSchema={Schems.LoginSchem}
+      >
+        <Form>
+          <FormInput
+            classes={formInputClasses}
+            name="email"
+            type="text"
+            label="Email Address"
           />
-        )}
-        <h2>LOGIN TO YOUR ACCOUNT</h2>
-        <Formik
-          initialValues={{
-            email: '',
-            password: '',
-          }}
-          onSubmit={clicked}
-          validationSchema={Schems.LoginSchem}
-        >
-          <Form>
-            <FormInput
-              classes={formInputClasses}
-              name="email"
-              type="text"
-              label="Email Address"
-            />
-            <FormInput
-              classes={formInputClasses}
-              name="password"
-              type="password"
-              label="Password"
-            />
-            <button
-              type="submit"
-              disabled={submitting}
-              className={styles.submitContainer}
-            >
-              <span className={styles.inscription}>
-                {isFetching ? 'Submitting...' : 'LOGIN'}
-              </span>
-            </button>
-          </Form>
-        </Formik>
-      </div>
-    );
+          <FormInput
+            classes={formInputClasses}
+            name="password"
+            type="password"
+            label="Password"
+          />
+          <button
+            type="submit"
+            disabled={submitting}
+            className={styles.submitContainer}
+          >
+            <span className={styles.inscription}>
+              {isFetching ? 'Submitting...' : 'LOGIN'}
+            </span>
+          </button>
+        </Form>
+      </Formik>
+    </div>
+  );
 };
 
 const mapStateToProps = (state) => {
@@ -85,8 +81,11 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  loginRequest: ({ data, history }) =>
-    dispatch(checkAuth({ data, history, authMode: CONSTANTS.AUTH_MODE.LOGIN })),
+  loginRequest: async ({ data, navigate }) => {
+    await dispatch(
+      checkAuth({ data, navigate, authMode: CONSTANTS.AUTH_MODE.LOGIN })
+    );
+  },
   authClear: () => dispatch(clearAuth()),
 });
 
