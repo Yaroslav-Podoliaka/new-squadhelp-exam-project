@@ -1,153 +1,3 @@
-// import React, { useEffect, useState } from 'react';
-// import { connect } from 'react-redux';
-// import classNames from 'classnames';
-// import {
-//   getContests,
-//   clearContestsList,
-//   setNewCustomerFilter,
-// } from '../../store/slices/contestsSlice';
-// import CONSTANTS from '../../constants';
-// import ContestsContainer from '../ContestsContainer/ContestsContainer';
-// import ContestBox from '../ContestBox/ContestBox';
-// import Spinner from '../Spinner/Spinner';
-// import TryAgain from '../TryAgain/TryAgain';
-// import styles from './CustomerDashboard.module.sass';
-
-// const CustomerDashboard = ({
-//   navigate,
-//   getContests,
-//   clearContestsList,
-//   customerFilter,
-//   contests,
-//   error,
-//   isFetching,
-//   haveMore,
-//   newFilter,
-// }) => {
-//   // const navigate = useNavigate();
-//   const [loading, setLoading] = useState(true);
-//   // Использование useEffect для получения контестов при монтировании компонента
-//   // и очистки списка контестов при размонтировании
-//   useEffect(() => {
-//     clearContestsList();
-//     getContests({
-//       limit: 8,
-//       offset: 0,
-//       contestStatus: customerFilter,
-//     }).then(() => setLoading(false));
-//     return () => {
-//       clearContestsList();
-//     };
-//   }, [getContests, clearContestsList, customerFilter]);
-//   // Определение функции для загрузки дополнительных контестов
-//   const loadMore = () => {
-//     if (haveMore) {
-//       setLoading(true);
-//     getContests({
-//       limit: 8,
-//       offset: contests ? contests.length : 0,
-//       contestStatus: customerFilter,
-//     }).then(() => setLoading(false));
-//     }
-//   };
-//   // Определение функции для перехода к расширенному виду контеста
-//   const goToExtended = (contest_id) => {
-//     navigate(`/contest/${contest_id}`);
-//   };
-//   // Определение функции для генерации списка компонентов ContestBox
-//   const setContestList = () => {
-//     console.log('Contests: ', contests);
-//     if (!contests) {
-//       return null;
-//     }
-//     return contests.map((contest) => (
-//       <ContestBox data={contest} key={contest.id} goToExtended={goToExtended} />
-//     ));
-//   };
-//   // Определение функции для повторной попытки получения контестов после ошибки
-//   const tryToGetContest = () => {
-//     console.log('TryToGetContest...');
-//     setLoading(true);
-//     clearContestsList();
-//     getContests({
-//       limit: 8,
-//       offset: 0,
-//       contestsStatus: customerFilter,
-//     }).then(() => setLoading(false));
-//   };
-  
-//   console.log('RENDER...');
-
-//   return (
-//     <div className={styles.mainContainer}>
-//       <div className={styles.filterContainer}>
-//         <div
-//           onClick={() => newFilter(CONSTANTS.CONTEST_STATUS_ACTIVE)}
-//           className={classNames({
-//             [styles.activeFilter]:
-//               CONSTANTS.CONTEST_STATUS_ACTIVE === customerFilter,
-//             [styles.filter]: CONSTANTS.CONTEST_STATUS_ACTIVE !== customerFilter,
-//           })}
-//         >
-//           Active Contests
-//         </div>
-//         <div
-//           onClick={() => newFilter(CONSTANTS.CONTEST_STATUS_FINISHED)}
-//           className={classNames({
-//             [styles.activeFilter]:
-//               CONSTANTS.CONTEST_STATUS_FINISHED === customerFilter,
-//             [styles.filter]:
-//               CONSTANTS.CONTEST_STATUS_FINISHED !== customerFilter,
-//           })}
-//         >
-//           Completed contests
-//         </div>
-//         <div
-//           onClick={() => newFilter(CONSTANTS.CONTEST_STATUS_PENDING)}
-//           className={classNames({
-//             [styles.activeFilter]:
-//               CONSTANTS.CONTEST_STATUS_PENDING === customerFilter,
-//             [styles.filter]:
-//               CONSTANTS.CONTEST_STATUS_PENDING !== customerFilter,
-//           })}
-//         >
-//           Inactive contests
-//         </div>
-//       </div>
-//       <div className={styles.contestsContainer}>
-//         {error ? (
-//           <TryAgain getData={tryToGetContest} />
-//         ) : (
-//           <div>
-//             {setContestList()}
-//             {loading && (
-//               <div className={styles.spinnerContainer}>
-//                 <Spinner />
-//               </div>
-//             )}
-//             {!loading && haveMore && (
-//               <div className={styles.spinnerContainer} onClick={loadMore}>
-//                 Load More
-//               </div>
-//             )}
-//           </div>
-//         )}
-//       </div>
-//     </div>
-//   );
-// };
-
-// const mapStateToProps = (state) => state.contestsList;
-
-// const mapDispatchToProps = (dispatch) => ({
-//   getContests: (data) =>
-//     dispatch(getContests({ requestData: data, role: CONSTANTS.CUSTOMER })),
-//   clearContestsList: () => dispatch(clearContestsList()),
-//   newFilter: (filter) => dispatch(setNewCustomerFilter(filter)),
-// });
-
-// export default connect(mapStateToProps, mapDispatchToProps)(CustomerDashboard);
-
 import React, { useCallback, useEffect, useState } from 'react';
 // import { useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -176,14 +26,8 @@ const CustomerDashboard = ({
 }) => {
   // const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const [prevCustomerFilter, setPrevCustomerFilter] = useState(customerFilter);
   // Определение функции для загрузки дополнительных контестов
   const loadMore = (startFrom) => {
-    // getContests({
-    //   limit: 8,
-    //   offset: startFrom,
-    //   contestStatus: customerFilter,
-    // });
     if (!loading) {
       setLoading(true);
       getContests({
@@ -206,20 +50,11 @@ const CustomerDashboard = ({
 
   // useEffect для получения контестов при монтировании компонента и очистки списка контестов при размонтировании
   useEffect(() => {
-    // clearContestsList();
     fetchContests();
     return () => {
       clearContestsList();
     };
   }, [fetchContests, clearContestsList]);
-
-  // useEffect(() => {
-  //   if (customerFilter !== prevCustomerFilter) {
-  //     // clearContestsList();
-  //     fetchContests();
-  //     setPrevCustomerFilter(customerFilter);
-  //   }
-  // }, [customerFilter, fetchContests, prevCustomerFilter/**, clearContestsList**/]);
 
   // Определение функции для перехода к расширенному виду контеста
   const goToExtended = (contest_id) => {
@@ -235,7 +70,6 @@ const CustomerDashboard = ({
   const tryToGetContest = () => {
     clearContestsList();
     fetchContests();
-    // getContests();
   };
   
   return (

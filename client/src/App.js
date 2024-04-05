@@ -14,6 +14,7 @@ import ContestPage from './pages/ContestPage/ContestPage';
 import UserProfile from './pages/UserProfile/UserProfile';
 import 'react-toastify/dist/ReactToastify.css';
 import ContestCreationPage from './pages/ContestCreation/ContestCreationPage';
+import InformationPage from './pages/InformationPage/InformationPage';
 import CONSTANTS from './constants';
 // import browserHistory from './browserHistory';
 import { ProvideNavigate } from './browserHistory';
@@ -91,6 +92,9 @@ const App = () => {
           <Route
             path="/account"
             element={<PrivateHoc component={UserProfile} />}
+          />
+          <Route
+            path="/how-it-works"element={<InformationPage />}
           />
           <Route path="*" element={<NotFound />} />
         </Routes>

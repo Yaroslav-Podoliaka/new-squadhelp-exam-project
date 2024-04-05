@@ -46,9 +46,6 @@ const CreatorDashboard = ({
   const prevLocationSearchRef = useRef(location?.search);
   const [loading, setLoading] = useState(false);
   const [prevCreatorFilter, setCreatorFilter] = useState(null);
-  // Добавляем состояние для ключа
-  // const [containerKey, setContainerKey] = useState(0);
-  
   // Функция для обновления параметров в URL
   const parseParamsToUrl = (creatorFilter) => {
     const obj = {};
@@ -172,11 +169,6 @@ const CreatorDashboard = ({
   };
   // Функция для загрузки дополнительных контестов
   const loadMore = (startFrom) => {
-    // getContests({
-    //   limit: 8,
-    //   offset: startFrom,
-    //   ...getPredicateOfRequest(),
-    // });
     if (!loading) {
       setLoading(true);
       getContests({
@@ -267,11 +259,6 @@ const CreatorDashboard = ({
     }
   },[haveMore]);
 
-  // useEffect(() => {
-  //   // Увеличиваем ключ при изменении фильтра
-  //   setContainerKey((prevKey) => prevKey + 1);
-  // }, [creatorFilter]);
-
   return (
     <div className={styles.mainContainer}>
       <div className={styles.filterContainer}>
@@ -339,7 +326,6 @@ const CreatorDashboard = ({
         </div>
       ) : (
         <ContestsContainer
-          // key={containerKey} // Передаем ключ в ContestsContainer
           isFetching={isFetching}
           loadMore={loadMore}
           haveMore={haveMore}

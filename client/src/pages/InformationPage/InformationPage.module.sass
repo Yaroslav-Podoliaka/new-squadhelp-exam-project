@@ -1,0 +1,1152 @@
+*
+  box-sizing: border-box
+
+a
+  color: #377dff
+  background-color: transparent
+  text-decoration: none
+
+.sharedContainer
+  display: flex
+  flex-direction: column
+  justify-content: flex-start
+  align-items: center
+  margin: auto
+
+  hr
+    width: 100%
+    border: 0
+    border-top: 1px solid #e7eaf3
+    margin-top: 0
+    margin-bottom: 0
+
+  .containerSpace1
+    display: flex
+    flex-direction: column
+    align-items: center
+    margin-top: 60px
+    width: 100%
+    padding: 32px 0
+    margin-left: auto
+    margin-right: auto
+
+    @media (min-width: 1536px)
+      max-width: 1280px
+
+    @media (min-width: 1200px) and (max-width: 1535px)
+      max-width: 1200px
+
+    @media (min-width: 1024px) and (max-width: 1199px)
+      max-width: 960px
+
+    @media (min-width: 992px)
+      flex-direction: row
+
+    .space1InnerContainer
+      display: flex
+      flex-direction: column
+      width: 100%
+      padding-right: 15px
+      padding-left: 15px
+      margin-bottom: 48px
+
+      @media (min-width: 992px)
+        flex: 0 0 58.33333%
+        max-width: 58.33333%
+        margin-bottom: 0
+
+      .space1NotBtn
+        display: inline-block
+        cursor: default
+        color: #377dff
+        font-size: 11px
+        font-weight: 400
+        line-height: 1.5
+        padding: 7px 15px
+        margin-bottom: 8px
+        background: rgba(55, 125, 255, .1)
+        border: 1px solid transparent
+        border-color: transparent
+        border-radius: 99px
+        max-width: max-content
+
+      .space1TextContainer
+        margin-bottom: 24px
+
+        .h1Space1Text
+          font-size: 40px
+          font-weight: 600
+          line-height: 1.5
+          margin-bottom: 8px
+
+        .space1Text
+          color: #77838f
+          line-height: 1.7
+          margin-bottom: 16px
+  
+      .space1ButtonContainer
+        margin-bottom: 64px
+
+        .space1ButtonPlayVideo
+          display: inline-block
+          font-size: 16px
+          font-weight: 500
+          line-height: 1.5
+          color: #fff
+          text-align: center
+          text-decoration: none
+          background-color: #377dff
+          border: 1px solid transparent
+          border-color: #377dff
+          border-radius: 99px
+          min-width: 120px
+          padding: 12px 16px
+          margin-bottom: 8px
+          transition: all 0.2s ease-in-out
+
+          @media (min-width: 576px)
+            margin-right: 8px
+            margin-bottom: 0
+
+          &:hover
+            box-shadow: 0 4px 11px rgba(55, 125, 255, .35)
+            transform: translateY(-3px)
+          
+          #btnPlayVideo
+            font-size: 14px
+            margin-right: 8px
+
+    .space1ImgContainer
+      width: 100%
+      padding-right: 15px
+      padding-left: 15px
+      margin-bottom: 24px
+
+      @media (min-width: 992px)
+        flex: 0 0 41.66667%
+        max-width: 41.66667%
+
+      .space1Img1
+        display: none
+
+        @media (min-width: 992px)
+          display: block
+
+  .containerSpace2
+    width: 100%
+    padding: 32px 15px
+    margin-left: auto
+    margin-right: auto
+
+    @media (min-width: 1024px) and (max-width: 1199px)
+      max-width: 960px
+
+    @media (min-width: 1200px) and (max-width: 1535px)
+      max-width: 1200px
+
+    @media (min-width: 1536px)
+      max-width: 1280px
+
+    .space2TextContainer
+      text-align: center
+      margin-left: auto
+      margin-right: auto
+      margin-bottom: 64px
+
+      @media (min-width: 768px)
+        width: 80%
+
+      .space2NotBtn
+        display: inline-block
+        font-size: 11px
+        font-weight: 400
+        color: #377dff
+        line-height: 1.5
+        padding: 7px 15px
+        margin-bottom: 8px
+        background: rgba(55, 125, 255, .1)
+        border: 1px solid transparent
+        border-color: transparent
+        border-radius: 99px
+        cursor: default
+
+      .h2Space2Text
+        font-size: 32px
+        font-weight: 400
+        line-height: 1.5
+        margin-bottom: 8px
+
+      .space2Text
+        color: #77838f
+        line-height: 1.7
+
+    .space2InnerContainer
+      display: flex
+      flex-direction: column
+
+      @media (min-width: 576px)
+        margin-right: -15px
+        margin-left: -15px
+
+      @media (min-width: 768px)
+        flex-direction: row
+
+      .space2InfoContainer
+        flex: 1 1 auto
+        padding: 64px 16px
+        margin-bottom: 24px
+        text-align: center
+        word-wrap: break-word
+        background-color: #fff
+        background-clip: border-box
+        border: 1px solid #e7eaf3
+        border-radius: 5px
+
+        @media (min-width: 576px)
+          display: flex
+          flex-direction: column
+          flex: 1 0 0%
+          margin-right: 15px
+          margin-left: 15px
+
+        @media (min-width: 768px)
+          margin-bottom: 0
+
+        .space2InfoTextContainer
+          margin-bottom: 24px
+
+          .space2ImgIcon
+            max-width: 72px
+            width: 100%
+            margin-left: auto
+            margin-right: auto
+            margin-bottom: 16px
+
+          .h3Space2Text
+            font-size: 24px
+            font-weight: 500
+            line-height: 1.5
+            margin-bottom: 8px
+
+          .space2InfoText
+            color: #77838f
+            line-height: 1.7
+            margin-bottom: 16px
+
+        .btn__linkInfo
+          display: inline-block
+          font-size: 16px
+          font-weight: 500
+          line-height: 1.5
+          color: #fff
+          background-color: #377dff
+          border-color: #377dff
+          background: #377dff
+          border: 1px solid transparent
+          border-radius: 5px
+          min-width: 155px
+          max-width: max-content
+          padding: 12px 16px
+          margin: auto
+          text-align: center
+          text-decoration: none
+          transition: all 0.2s ease-in-out
+
+          &:hover
+            box-shadow: 0 4px 11px rgba(55, 125, 255, .35)
+            transform: translateY(-3px)
+  
+  .containerSpace3
+    width: 100%
+    padding-top: 64px
+    padding-bottom: 64px
+    margin-right: auto
+    margin-left: auto
+
+    @media (min-width: 768px)
+      padding-top: 128px
+      padding-bottom: 128px
+
+    @media only screen and (max-width: 1024px)
+      max-width: 100%
+
+    @media (min-width: 1024px) and (max-width: 1199px)
+      max-width: 960px
+
+    @media (min-width: 1200px) and (max-width: 1535px)
+      max-width: 1200px
+
+    @media (min-width: 1536px)
+      max-width: 1280px
+
+    .space3TextContainer
+      text-align: center
+      margin-bottom: 64px
+
+      @media (min-width: 768px)
+        width: 80%
+        margin-left: auto
+        margin-right: auto
+        
+      @media (min-width: 992px)
+        width: 50%
+
+      .space3ImgIcon1
+        max-width: 72px
+        margin-left: auto
+        margin-right: auto
+        margin-bottom: 16px
+
+      .h2Space3Text
+        font-size: 32px
+        font-weight: 500
+        line-height: 1.5
+        margin-bottom: 8px
+
+    .space3InnerContainer
+      display: flex
+      flex-direction: column
+
+      @media (min-width: 992px)
+        flex-direction: row
+        align-items: center
+        
+
+      .space3ListContainer
+        position: relative
+        width: 100%
+        padding-left: 15px
+        padding-right: 15px
+        margin-bottom: 48px
+
+        @media (min-width: 992px)
+          margin-bottom: 0
+          order: 2
+          flex: 0 0 50%
+          max-width: 50%
+
+        .space3List
+          margin-bottom: 16px
+
+          .space3ListItem
+            position: relative
+            padding-top: 16px
+            padding-bottom: 16px
+            padding-left: 40px
+
+            &:before
+              position: absolute
+              top: 0
+              bottom: 0
+              right: 0
+              left: -4px
+              width: 32px
+              height: 0
+              border-top: 1px solid #e7eaf3
+              margin: auto auto auto 0
+              content: ""
+
+            &:after
+              position: absolute
+              top: auto
+              bottom: 0
+              right: 0
+              left: -15px
+              width: 10px
+              height: 100%
+              border-right: 1px solid #e7eaf3
+              margin: auto auto auto 0
+              content: ""
+
+            &:first-child::after
+              bottom: 0
+              height: 50%
+
+            &:last-child::after
+              top: 0
+              bottom: auto
+              height: 50%
+
+            .space3ContanierListItem
+              display: flex
+              padding: 32px
+              align-items: center
+              border: 1px solid #e7eaf3
+              border-radius: 5px
+
+              .space3NumberContanierListItem
+                display: flex
+                min-width: 48px
+                margin-right: 16px
+
+                .space3ListItemText1
+                  color: #377dff
+                  font-size: 56px
+                  font-weight: 500
+                  line-height: 1.2
+
+              .space3TextContanierListItem
+                flex: 1
+
+                .space3ListItemText2
+                  color: #77838f
+                  line-height: 1.7
+
+      .space3ImgContainer
+        width: 100%
+        padding-left: 15px
+        padding-right: 15px
+
+        @media (min-width: 992px)
+          order: 1
+          flex: 0 0 50%
+          max-width: 50%
+
+        @media (min-width: 992px)
+          padding-right: 63px
+
+  .containerSpace4
+    display: flex
+    flex-direction: column
+    width: 100%
+    padding-top: 64px
+    padding-bottom: 64px
+    margin-left: auto
+    margin-right: auto
+
+    @media (min-width: 992px)
+      flex-direction: row
+      align-items: center
+
+    @media only screen and (max-width: 1024px)
+      max-width: 100%
+
+    @media (min-width: 1024px) and (max-width: 1199px)
+      max-width: 960px
+
+    @media (min-width: 1200px) and (max-width: 1535px)
+      max-width: 1200px
+
+    @media (min-width: 1536px)
+      max-width: 1280px
+
+    .space4StickyContainer
+      align-self: flex-start
+      width: 100%
+      padding-left: 15px
+      padding-right: 15px
+      margin-bottom: 48px
+
+      @media (min-width: 992px)
+        flex: 0 0 25%
+        max-width: 25%
+        margin-bottom: 0
+
+      .space4StickyBlock
+        display: flex
+        flex-direction: column
+        max-width: 100%
+        word-wrap: break-word
+        background-color: #377dff
+        background-clip: border-box
+        border-radius: 5px
+
+        .stickyList
+          display: flex
+          flex-direction: column
+          max-height: 720px
+          padding: 16px 32px
+
+          .stickyListLink
+            display: block
+            width: 100%
+            font-size: 14px
+            color: rgba(255, 255, 255, .7)
+            background-color: transparent
+            padding-top: 16px
+            padding-bottom: 16px
+
+            &:hover
+              color: #fff
+
+    .space4InfoContainer
+      width: 100%
+      padding-left: 15px
+      padding-right: 15px
+
+      @media (min-width: 992px)
+        flex: 0 0 75%
+        max-width: 75%
+
+      .space4InfoItemContainer
+        padding-top: 64px
+        padding-bottom: 64px
+
+        &:first-child
+          padding-top: 0
+
+        &:last-child
+          padding-bottom: 0
+
+        .space4InfoTitleContainer
+          margin-bottom: 16px
+
+          .h3Space4Title
+            font-size: 28px
+            font-weight: 600
+            color: #377dff
+            line-height: 1.5
+            margin-bottom: 8px
+
+        .space4DropDownContainer
+          display: flex
+          flex-direction: column
+          word-wrap: break-word
+          background-color: #fff
+          background-clip: border-box
+          border: 1px solid #e7eaf3
+          border-radius: 5px
+          margin-bottom: 16px
+
+          .space4CollapsedContainer
+            background-color: #fff
+            border-bottom: 1px solid #e7eaf3
+            transition: 0.3s ease-in-out
+
+            &:hover
+              background-color: #f8fafd
+
+            &:first-child
+              border-radius: calc(5px - 1px) 0 0
+
+            .h5Space4
+              font-size: 20px
+              font-weight: 500
+
+              .space4FalceBtn
+                display: flex
+                justify-content: space-between
+                width: 100%
+                color: #1e2022
+                text-align: left
+                font-size: 16px
+                font-weight: 400
+                line-height: 1.5
+                padding: 16px
+                background-color: transparent
+                border: 1px solid transparent
+                border-radius: 5px
+                cursor: default
+                transition: all 0.2s ease-in-out
+
+                &:focus
+                  box-shadow: 0 0 0 0 transparent
+                  outline: 0
+
+                &:hover
+                  color: #0052ea
+
+              #spase4Arrow
+                display: inline-block
+                font-size: 14px
+                color: #377dff
+                margin-left: 16px
+                transition: 0.3s ease-in-out
+
+              .rotated
+                transform: rotate(90deg)
+
+          .space4TextContainer
+            line-height: 1.5
+            max-height: 0
+            overflow: hidden
+            transition: max-height 0.25s ease-out
+
+            &.show
+              max-height: 100vh
+              transition: max-height 0.35s ease-in
+            
+            .space4TextInnerContainer
+              padding: 16px
+
+              .space4TextList1
+                display: block
+                list-style-type: disc
+                margin-bottom: 16px
+                padding-inline-start: 40px
+
+  .containerSpace5
+    position: relative
+    width: 100%
+    background-image: linear-gradient(150deg, #2d1582 0%, #19a0ff 100%)
+    background-repeat: repeat-x
+    text-align: center
+    z-index: 2
+    overflow: hidden
+
+    .space5ImgInfoContainer
+      width: 100%
+      padding: 32px 15px
+      margin-left: auto
+      margin-right: auto
+
+      @media only screen and (max-width: 1024px)
+        max-width: 100%
+
+      @media (min-width: 1536px)
+        max-width: 1280px
+
+      @media (min-width: 1200px) and (max-width: 1535px)
+        max-width: 1200px
+
+      @media (min-width: 1024px) and (max-width: 1199px)
+        max-width: 960px
+
+      .h3Space5Text
+        color: #00dffc
+        font-size: 32px
+        font-weight: 600
+        line-height: 1.5
+        margin-bottom: 8px
+
+      .space5Text
+        color: #fff
+        font-size: 20px
+        font-weight: 300
+        margin-bottom: 16px
+
+      .space5StartBtn
+        display: inline-block
+        min-width: 155px
+        color: #1e2022
+        font-size: 16px
+        font-weight: 500
+        line-height: 1.5
+        text-align: center
+        text-decoration: none
+        vertical-align: middle
+        background-color: #fff
+        border: 1px solid transparent
+        border-color: #fff
+        border-radius: 5px
+        padding: 12px 16px
+        transition: all 0.2s ease-in-out
+
+        &:hover
+          box-shadow: 0 4px 11px rgba(255, 255, 255, .35)
+          transform: translateY(-3px)
+
+    .space5Img1
+      display: block
+      position: absolute
+      top: 0
+      left: 0
+      width: 100%
+      max-width: 208px
+      z-index: -1
+      overflow: hidden
+
+    .space5Img2
+      display: block
+      position: absolute
+      bottom: 0
+      right: 0
+      width: 100%
+      max-width: 208px
+      z-index: -1
+      overflow: hidden
+
+  .containerSpace6
+    display: flex
+    flex-direction: column
+    width: 100%
+    padding-top: 32px
+    padding-bottom: 32px
+    margin-left: auto
+    margin-right: auto
+
+    @media (min-width: 768px)
+      flex-direction: row
+
+    @media (min-width: 992px)
+      justify-content: center
+      padding-top: 64px
+      padding-bottom: 64px
+
+    @media only screen and (max-width: 1024px)
+      max-width: 100%
+
+    @media (min-width: 1024px) and (max-width: 1199px)
+      max-width: 960px
+
+    @media (min-width: 1200px) and (max-width: 1535px)
+      max-width: 1200px
+
+    @media (min-width: 1536px)
+      max-width: 1280px
+
+    .space6InnerContainer
+      position: relative
+      width: 100%
+      padding-left: 15px
+      padding-right: 15px
+      margin-bottom: 48px
+
+      @media (min-width: 992px)
+        margin-bottom: 0
+
+      @media (min-width: 768px)
+        flex: 0 0 33.33333%
+        max-width: 33.33333%
+
+      &:not(:last-child)::after
+        @media (min-width:768px)
+          position: absolute
+          right: -15px
+          top: 50%
+          height: 64px
+          border-left: 1px solid rgba(30, 32, 34, .2)
+          content: ""
+          margin-top: -32px
+          transform: rotate(15deg)
+
+      .space6ImgContainer
+        text-align: center
+
+        @media (min-width: 768px) and (max-width: 991px)
+          padding-left: 16px
+          padding-right: 16px
+
+        @media (min-width: 992px)
+          padding-left: 48px
+          padding-right: 48px
+
+        .space6Img
+          display: block
+          width: 100%
+          max-width: 72px
+          margin-left: auto
+          margin-right: auto
+          margin-bottom: 16px
+
+        .space6ImgCentral
+          display: block
+          width: 100%
+          max-width: 80px
+          margin-left: auto
+          margin-right: auto
+          margin-bottom: 16px
+
+        .space6Text
+          color: #77838f
+          line-height: 1.7
+
+          .space6BoldText
+            color: #1e2022
+            font-weight: 600
+
+  .containerSpace7
+    display: flex
+    flex-direction: column
+    width: 100%
+    padding: 32px 15px 112px
+    margin-right: auto
+    margin-left: auto
+
+    @media (min-width: 992px)
+      flex-direction: row
+      align-items: center
+
+    @media only screen and (max-width: 1024px)
+      max-width: 100%
+
+    @media (min-width: 1024px) and (max-width: 1199px)
+      max-width: 960px
+
+    @media (min-width: 1200px) and (max-width: 1535px)
+      max-width: 1200px
+
+    @media (min-width: 1536px)
+      max-width: 1280px
+
+    .space7TextContainer
+      position: relative
+      width: 100%
+      box-shadow: 0 10px 40px 10px rgba(140, 152, 164, .175)
+      border-radius: 5px
+      padding: 64px 32px
+
+      @media (min-width: 576px)
+        padding-right: 64px
+        padding-left: 64px
+
+      @media (min-width: 992px)
+        flex: 0 0 58.33333%
+        max-width: 58.33333%
+        padding-top: 48px
+        padding-bottom: 48px
+
+      @media (min-width: 992px) and (max-width: 1200px)
+        padding-top: 40px
+        padding-bottom: 40px
+
+      .space7List1
+        margin-bottom: 16px
+
+        .space7Item1List1
+          display: flex
+          align-items: flex-start
+          padding-bottom: 16px
+
+          .space7FalceBtn
+            position: relative
+            display: inline-block
+            width: 32px
+            height: 32px
+            color: #377dff
+            font-size: 13px
+            font-weight: 500
+            background-color: rgba(55, 125, 255, .1)
+            border: 1px solid transparent
+            border-color: transparent
+            border-radius: 50%
+            margin-right: 16px
+            cursor: default
+
+            #space7BtnIcon
+              position: absolute
+              top: 50%
+              left: 50%
+              transform: translate(-50%, -50%)
+
+          .space7InnerTextContainer
+            flex: 1
+
+            .h4Space7Text
+              font-size: 24px
+              font-weight: 500
+              line-height: 1.5
+              margin-bottom: 4px
+
+            .space7Section1Text
+              color: #77838f
+              font-size: 14px
+              font-weight: 400
+              line-height: 1.7
+              margin-bottom: 16px
+
+        .space7Item2List1
+          padding-top: 16px
+          padding-bottom: 16px
+          border-top: 1px solid #e7eaf3
+
+    .space7BannerContainer
+      position: relative
+      width: 100%
+      background-color: #377dff
+
+      .space7InnerBannerContainer
+        padding: 64px 32px
+
+        @media (min-width: 576px)
+          padding-right: 64px
+          padding-left: 64px
+
+        .space7List2
+          margin-bottom: 16px
+
+          .space7ItemList2
+            display: flex
+            align-items: flex-start
+            padding-bottom: 16px
+
+            .space7BannerInfoContainer
+              flex: 1
+
+              .h4Space7Banner
+                color: #fff
+                font-size: 32px
+                font-weight: 300
+                line-height: 1.5
+                margin-bottom: 4px
+
+                @media (max-width: 420px)
+                  font-size: 25px
+
+              .space7Section2Text
+                color: #fff
+                font-size: 14px
+                font-weight: 400
+                line-height: 1.7
+                margin-bottom: 16px
+
+              .space7Btn
+                display: inline-block
+                min-width: 155px
+                color: #377dff
+                font-size: 16px
+                font-weight: 500
+                line-height: 1.5
+                padding: 12px 16px
+                background-color: #fff
+                border-color: #fff
+                border: 1px solid transparent
+                border-radius: 99px
+                box-shadow: 0 3px 6px 0 rgba(140, 152, 164, .25)
+                transition: all 0.2s ease-in-out
+
+                @media (max-width: 480px)
+                  width: 100%
+                  margin-bottom: 15px
+
+                &:hover
+                  transform: translateY(-3px)
+
+              .space7Link2
+                color: #fff
+                font-size: 14px
+                font-weight: 400
+                text-decoration: none
+                background-color: transparent
+
+                &:hover
+                  color: #d9d9d9
+
+              .space7SpanText
+                display: inline-block
+                color: #fff
+                font-size: 14px
+                font-weight: 400
+                margin-top: 8px
+
+  .overlay
+    position: fixed
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    background-color: rgba(0, 0, 0, 0.5)
+
+  .containerSpace8
+    display: none
+    width: 500px
+    max-height: 85vh
+    position: fixed
+    top: 50%
+    left: 50%
+    transform: translate(-50%, -50%)
+    z-index: 3
+
+    @media only screen and (max-width: 500px)
+      max-width: 100%
+
+    &.modalOpen
+      display: block
+      overflow-y: auto
+
+    .space8ModalContainer
+      position: relative
+      display: flex
+      flex-direction: column
+      word-wrap: break-word
+      background-color: #fff
+      background-clip: border-box
+      border: 1px solid #e7eaf3
+      border-radius: 5px
+
+      .space8ModalInfoContainer
+        flex: 1 1 auto
+        padding: 32px
+
+        .h4Space8
+          color: #377dff
+          font-size: 24px
+          font-weight: 500
+          line-height: 1.5
+          margin-bottom: 8px
+
+        .space8Text
+          color: #77838f
+          line-height: 1.7
+          margin-bottom: 16px
+
+        .space8ItemList
+          padding-top: 8px
+          padding-bottom: 8px
+
+          .space8InnerListContainer
+            display: flex
+            align-items: flex-start
+
+            .space8Icon1Modal
+              position: relative
+              display: inline-block
+              width: 32px
+              height: 32px
+              color: #de4437
+              font-size: 13px
+              font-weight: 500
+              text-align: center
+              margin-right: 16px
+              background: rgba(222, 68, 55, .1)
+              border-color: transparent
+              border: 1px solid transparent
+              border-radius: 50%
+
+            .space8Icon2Modal
+              position: relative
+              display: inline-block
+              width: 32px
+              height: 32px
+              color: #377dff
+              font-size: 13px
+              font-weight: 500
+              text-align: center
+              margin-right: 16px
+              background: rgba(55, 125, 255, .1)
+              border-color: transparent
+              border: 1px solid transparent
+              border-radius: 50%
+
+            .space8Icon3Modal
+              position: relative
+              display: inline-block
+              width: 32px
+              height: 32px
+              color: #00c9a7
+              font-size: 13px
+              font-weight: 500
+              text-align: center
+              margin-right: 16px
+              background: rgba(0, 201, 167, .1)
+              border-color: transparent
+              border: 1px solid transparent
+              border-radius: 50%
+
+            #space8Icon
+              position: absolute
+              top: 50%
+              left: 50%
+              transform: translate(-50%, -50%)
+
+            .space8TextContainer
+              flex: 1
+              line-height: 1.5
+
+      .space8ModalBtnContainer
+        display: flex
+        justify-content: center
+        padding: 16px 16px
+        background-color: #fff
+        border-top: 1px solid #e7eaf3
+
+        @media (min-width: 482px)
+          justify-content: flex-end
+
+      .space8Btn
+        display: inline-block
+        color: #77838f
+        font-size: 14px
+        font-weight: 500
+        line-height: 1.5
+        text-align: center
+        padding: 10px 18px
+        background: rgba(119, 131, 143, .1)
+        border: 1px solid transparent
+        border-radius: 4px
+        border-color: transparent
+        transition: all 0.3s ease-in-out
+
+        @media (max-width: 480px)
+          width: 100%
+
+        &:hover
+          color: #fff
+          background: #77838f
+
+  .containerSpace9
+    display: flex
+    flex-wrap: wrap
+    width: 100%
+    margin-right: auto
+    margin-left: auto
+    margin-bottom: 24px
+
+    @media (min-width: 992px)
+      align-items: center
+
+    @media only screen and (max-width: 1024px)
+      max-width: 100%
+
+    @media (min-width: 1024px) and (max-width: 1199px)
+      max-width: 960px
+
+    @media (min-width: 1200px) and (max-width: 1535px)
+      max-width: 1200px
+
+    @media (min-width: 1536px)
+      max-width: 1280px
+
+    .space9Section1Container
+      width: 100%
+      padding-right: 15px
+      padding-left: 15px
+
+      @media (min-width: 768px)
+        padding-left: 39px
+
+      @media (min-width: 768px) and (max-width: 991px)
+        flex: 0 0 41.66667%
+        max-width: 41.66667%
+
+      @media (min-width: 992px)
+        flex: 0 0 33.33333%
+        max-width: 33.33333%
+
+      .h6Space9Text
+        font-size: 28px
+        font-weight: 300
+        line-height: 1.5
+        padding-top: 32px
+        margin-bottom: 8px
+
+    .space9Section2Container
+      width: 100%
+      margin-bottom: 32px
+
+      @media (min-width: 768px) and (max-width: 991px)
+        flex: 0 0 58.33333%
+        max-width: 58.33333%
+        margin-bottom: 0
+
+      @media (min-width: 992px)
+        flex: 0 0 66.66667%
+        max-width: 66.66667%
+        margin-bottom: 0
+
+      .space9Section2InnerContainer
+        display: flex
+        flex-wrap: wrap
+        justify-content: center
+        border-top: 1px solid #e7eaf3
+        padding-top: 32px
+
+        .space9LabelContainer
+          flex: 0 0 33.33333%
+          max-width: 33.33333%
+          width: 100%
+          padding-right: 24px
+          padding-left: 24px
+          margin-bottom: 24px
+
+          @media (min-width: 992px)
+            flex: 0 0 25%
+            max-width: 25%
+            margin-bottom: 0
+
+          .space9Img
+            width: 100%
+            max-width: 96px
+            height: auto
+            margin-right: auto
+            margin-left: auto
