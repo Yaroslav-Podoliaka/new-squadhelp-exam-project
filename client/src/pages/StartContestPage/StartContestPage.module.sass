@@ -47,6 +47,58 @@
       margin-bottom: 20px
       border-top: 2px solid #28d2d1
 
+  .btnGroupContainer
+    display: flex
+    flex-direction: row
+    flex-wrap: wrap
+    justify-content: space-around
+    max-width: 1200px
+    padding: 20px 15px
+
+    .btnContainer
+      display: inline-block
+      flex: 1 1
+      box-sizing: border-box
+      text-align: center
+      max-width: 350px
+      min-width: 200px
+      border: 2px solid #e7eaf3
+      border-radius: 5px
+      padding: 30px 18px
+      margin: 15px
+
+      .btnTitle
+        font-size: 20px
+        color: #fff
+        background-color: #77838f
+        text-align: center
+        padding: 8px 20px
+        border-radius: 99px
+
+    .btnText
+      line-height: 1.5
+      padding-top: 20px
+
+    .clickedBtnContainer
+      display: inline-block
+      flex: 1 1
+      box-sizing: border-box
+      text-align: center
+      max-width: 350px
+      min-width: 200px
+      border: 2px solid #28d2d1
+      border-radius: 5px
+      padding: 30px 18px
+      margin: 15px
+
+      .clickedBtnTitle
+        font-size: 20px
+        color: #fff
+        background-color: #28d2d1
+        text-align: center
+        padding: 8px 20px
+        border-radius: 99px
+
 .baseBundleContainer
   background-color: #28d2d1
   padding: 25px 0
@@ -64,7 +116,6 @@
     box-sizing: border-box
     flex-wrap: wrap
     max-width: 1200px
-
 
   .infoBaseBundles
     padding-left: 15px
@@ -98,7 +149,6 @@
 
       span
         font-weight: 700
-
 
 .startContestHeader
   display: flex

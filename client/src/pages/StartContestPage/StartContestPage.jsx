@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { updateBundle } from '../../store/slices/bundleSlice';
@@ -9,8 +9,13 @@ import ProgressBar from '../../components/ProgressBar/ProgressBar';
 // import Header from '../../components/Header/Header';
 import styles from './StartContestPage.module.sass';
 
-const StartContestPage = ({userStore, choseBundle}) => {
+const StartContestPage = ({ userStore, choseBundle }) => {
+  const [clickedBtn, setClickedBtn] = useState(null);
   const navigate = useNavigate();
+
+  const handleClick = (btn) => {
+    setClickedBtn(btn);
+  };
 
   if (userStore.data.role !== CONSTANTS.CUSTOMER) {
     navigate('/');
@@ -57,22 +62,22 @@ const StartContestPage = ({userStore, choseBundle}) => {
         <div className={styles.baseBundles}>
           <BundleBox
             path={['Name.png']}
-            header='Name'
-            describe='Get up and running with the perfect name.'
+            header="Name"
+            describe="Get up and running with the perfect name."
             setBundle={setBundle}
             navigate={navigate}
           />
           <BundleBox
             path={['Logo.png']}
-            header='Logo'
-            describe='Kickstart your venture with a unique, memorable logo.'
+            header="Logo"
+            describe="Kickstart your venture with a unique, memorable logo."
             setBundle={setBundle}
             navigate={navigate}
           />
           <BundleBox
             path={['Tagline.png']}
-            header='Tagline'
-            describe='Connect deeply with your target audience with an on-target tagline.'
+            header="Tagline"
+            describe="Connect deeply with your target audience with an on-target tagline."
             setBundle={setBundle}
             navigate={navigate}
           />
@@ -91,32 +96,91 @@ const StartContestPage = ({userStore, choseBundle}) => {
         <div className={styles.baseBundles}>
           <BundleBox
             path={['Name.png', 'Logo.png']}
-            header='Name+Logo'
-            describe='Get the essentials needed to establish your brand together and save.'
+            header="Name+Logo"
+            describe="Get the essentials needed to establish your brand together and save."
             setBundle={setBundle}
             navigate={navigate}
           />
           <BundleBox
             path={['Name.png', 'Tagline.png']}
-            header='Name+Tagline'
-            describe='Communicate your vision with the perfect Name/Tagline combo.'
+            header="Name+Tagline"
+            describe="Communicate your vision with the perfect Name/Tagline combo."
             setBundle={setBundle}
             navigate={navigate}
           />
           <BundleBox
             path={['Logo.png', 'Tagline.png']}
-            header='Tagline+Logo'
-            describe='Description for Logo + Tagline will come here.'
+            header="Tagline+Logo"
+            describe="Description for Logo + Tagline will come here."
             setBundle={setBundle}
             navigate={navigate}
           />
           <BundleBox
             path={['Name.png', 'Logo.png', 'Tagline.png']}
-            header='Name+Tagline+Logo'
-            describe='Establish your entire brand identity and save with this bundle.'
+            header="Name+Tagline+Logo"
+            describe="Establish your entire brand identity and save with this bundle."
             setBundle={setBundle}
             navigate={navigate}
           />
+        </div>
+        <div className={styles.btnGroupContainer}>
+          <div
+            className={
+              clickedBtn === 'btn1'
+                ? styles.clickedBtnContainer
+                : styles.btnContainer
+            }
+            onClick={() => handleClick('btn1')}
+          >
+            <span
+              className={
+                clickedBtn === 'btn1' ? styles.clickedBtnTitle : styles.btnTitle
+              }
+            >
+              Yes
+            </span>
+            <p className={styles.btnText}>
+              The Domain should exactly match the name
+            </p>
+          </div>
+          <div
+            className={
+              clickedBtn === 'btn2'
+                ? styles.clickedBtnContainer
+                : styles.btnContainer
+            }
+            onClick={() => handleClick('btn2')}
+          >
+            <span
+              className={
+                clickedBtn === 'btn2' ? styles.clickedBtnTitle : styles.btnTitle
+              }
+            >
+              Yes
+            </span>
+            <p className={styles.btnText}>
+              But minor variations are allowed (Recommended)
+            </p>
+          </div>
+          <div
+            className={
+              clickedBtn === 'btn3'
+                ? styles.clickedBtnContainer
+                : styles.btnContainer
+            }
+            onClick={() => handleClick('btn3')}
+          >
+            <span
+              className={
+                clickedBtn === 'btn3' ? styles.clickedBtnTitle : styles.btnTitle
+              }
+            >
+              No
+            </span>
+            <p className={styles.btnText}>
+              I am only looking for a name, not a Domain
+            </p>
+          </div>
         </div>
       </div>
       <Footer />
@@ -134,7 +198,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(StartContestPage);
-
 
 // import React from 'react';
 // import { connect } from 'react-redux';
